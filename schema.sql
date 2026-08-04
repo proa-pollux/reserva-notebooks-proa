@@ -4,11 +4,10 @@
 
 CREATE TABLE profesores (
     id_profesor INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(50) NOT NULL,
-    apellido VARCHAR(50) NOT NULL,
-    usuario VARCHAR(100) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-    primer_ingreso BOOLEAN DEFAULT TRUE,
+    nombre VARCHAR(20) NOT NULL,
+    apellido VARCHAR(20) NOT NULL,
+    usuario VARCHAR(40) NOT NULL UNIQUE,
+    password VARCHAR(15) NOT NULL,
     activo BOOLEAN DEFAULT TRUE
 );
 
