@@ -6,13 +6,14 @@
 ## Funcionalidades
 
 1. Reservar
-2. Elegir cantidad de notebooks
-3. Elegir curso
-4. Elegir horario
-5. Marcar como devuelta
-6. Observaciones
-7. Cancelar reserva
-8. Ver reservas del dia
+2. Elegir el dia
+3. Elegir cantidad de notebooks
+4. Elegir curso
+5. Elegir horario
+6. Marcar como devuelta
+7. Observaciones
+8. Cancelar reserva
+9. Ver reservas del dia que quieras(maximo 1 mes atras)
 
 ## Usuarios que usan la app
 - Profesores y directivos
