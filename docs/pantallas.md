@@ -2,6 +2,8 @@
 
 ## Pantalla 1 - Inicio de sesión
 
+![Inicio de sesión](img/login.png)
+
 Es la primer pantalla que ve el profesor al abrir la aplicación.
 
 ### Componentes
@@ -18,6 +20,8 @@ Es la primer pantalla que ve el profesor al abrir la aplicación.
 El profesor ingresa su usuario y contraseña para acceder al sistema.
 
 ## Pantalla 2 - Menú principal
+
+![Menú principal](img/menu.png)
 
 Luego de iniciar sesión correctamente, el profesor accede al menú principal.
 
@@ -36,6 +40,8 @@ Desde el menú lateral también podrá acceder a:
 ---
 
 ## Pantalla 3 - Nueva reserva
+
+![Nueva reserva](img/nueva_reserva.png)
 
 Permite registrar una nueva reserva de notebooks.
 
@@ -59,6 +65,8 @@ Si no hay disponibilidad suficiente, se informa al profesor para que seleccione 
 
 ## Pantalla 4 - Confirmación de reserva
 
+![Nueva reserva](img/confirmar_reserva.png)
+
 Se muestra luego de crear correctamente una reserva.
 
 ### Información mostrada
@@ -81,6 +89,8 @@ También se recuerda que las notebooks deberán devolverse al finalizar el horar
 
 ## Pantalla 5 - Ver reservas
 
+![Nueva reserva](img/ver_reservas.png)
+
 Permite consultar las reservas realizadas por todos los profesores.
 
 ### Funcionalidades
@@ -102,6 +112,8 @@ Esta pantalla es únicamente de consulta y no deja hacer modificaciones.
 ---
 
 ## Pantalla 6 - Mis reservas
+
+![Nueva reserva](img/mis_reservas.png)
 
 Permite consultar únicamente las reservas realizadas por el profesor que inició sesión.
 
@@ -135,7 +147,9 @@ Muestra toda la información correspondiente a una reserva.
 
 Según el estado de la reserva, el sistema presenta diferentes acciones.
 
-### Caso 1 - La reserva aún no comenzó
+### Caso 1 - La reserva todavía no empezó
+
+![Nueva reserva](img/detalle_reserva_1.png)
 
 Se habilita el botón:
 
@@ -145,7 +159,9 @@ El profesor podrá cancelar la reserva mientras no haya iniciado el horario sele
 
 ---
 
-### Caso 2 - La reserva se encuentra en curso
+### Caso 2 - La reserva está en curso
+
+![Nueva reserva](img/detalle_reserva_2.png)
 
 La información se muestra únicamente en modo consulta.
 
@@ -153,7 +169,9 @@ Durante este período no es posible cancelar la reserva ni registrar la devoluci
 
 ---
 
-### Caso 3 - El horario ya finalizó
+### Caso 3 - El horario ya terminó
+
+![Nueva reserva](img/detalle_reserva_3.png)
 
 Se habilitan:
 
@@ -168,6 +186,8 @@ Si no realiza esta acción dentro de los 15 minutos posteriores a la finalizaci�
 
 ### Caso 4 - Reserva finalizada
 
+![Nueva reserva](img/detalle_reserva_4.png)
+
 Cuando las notebooks ya fueron devueltas, la pantalla muestra:
 
 * Información de la reserva.
@@ -179,6 +199,8 @@ En este estado ya no se permiten modificaciones.
 ---
 
 ## Pantalla 8 - Confirmación de devolución
+
+![Nueva reserva](img/devolucion.png)
 
 Se muestra luego de registrar correctamente la devolución.
 
@@ -194,6 +216,8 @@ Incluye un botón para regresar al menú principal.
 ---
 
 ## Pantalla 9 - Menú lateral
+
+![Nueva reserva](img/lateral.png)
 
 Disponible desde cualquier pantalla de la aplicación.
 
