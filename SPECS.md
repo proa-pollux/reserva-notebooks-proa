@@ -1,19 +1,26 @@
 ## Requerimientos
 
-- Se necesita un usuario, contraseña e ID asociado a cada docente
+- Autenticación mediante supabase para los profesores
+- Base de datos para los profesores
 - Base de datos con stock completo(todas las notebooks que estén en funcionamiento, cargadores y zapatillas)
 
 ## Funcionalidades
 
+### Profesores:
+
 1. Reservar
-2. Elegir el dia
+2. Elegir el día
 3. Elegir cantidad de notebooks
 4. Elegir curso
 5. Elegir horario
 6. Marcar como devuelta
 7. Observaciones
 8. Cancelar reserva
-9. Ver reservas del dia que quieras(maximo 1 mes atras)
+9. Ver reservas del día que quieras(máximo 1 mes atrás)
+
+### Directivos:
+
+1. Ver reservas del día que quieras(máximo 1 mes atrás)
 
 ## Usuarios que usan la app
 - Profesores y directivos
