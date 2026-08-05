@@ -2,7 +2,9 @@
 
 ## Pantalla 1 - Inicio de sesión
 
-![Inicio de sesión](img/login.png)
+<p align="center">
+    <img src="img/login.png" width="300">
+</p>
 
 Es la primer pantalla que ve el profesor al abrir la aplicación.
 
