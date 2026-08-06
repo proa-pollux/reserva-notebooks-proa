@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Detalle de Reserva</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/detalle-reserva.css">
+</head>
+
+<body
+    class="bg-surface text-on-surface font-body-lg antialiased min-h-screen flex flex-col selection:bg-primary-container selection:text-on-primary-container">
+
+    <!-- TopAppBar -->
+    <header id="topAppBar"
+        class="fixed top-0 w-full z-50 bg-surface flex items-center px-md h-12 transition-shadow duration-300">
+
+        <button
+            class="text-primary hover:bg-surface-container-low transition-colors active:opacity-80 p-2 -ml-2 rounded-full flex items-center justify-center">
+
+            <span class="material-symbols-outlined">
+                arrow_back
+            </span>
+
+        </button>
+
+        <h1 class="font-headline-md-mobile text-headline-md-mobile font-bold text-primary ml-2 truncate">
+            Detalle de Reserva
+        </h1>
+
+    </header>
+
+    <!-- Contenido -->
+    <main class="flex-1 pt-[64px] pb-[100px] px-md max-w-2xl mx-auto w-full flex flex-col gap-lg">
+
+        <!-- Estado -->
+        <section class="flex flex-col gap-sm items-start">
+
+            <div
+                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-variant text-on-surface-variant font-label-lg text-label-lg">
+
+                <span class="material-symbols-outlined text-[16px]"
+                    style="font-variation-settings:'FILL' 1;">
+                    check_circle
+                </span>
+
+                Finalizada
+
+            </div>
+
+            <h2 class="font-display-lg text-display-lg text-on-surface">
+                Reserva #4892
+            </h2>
+
+            <p class="font-body-md text-body-md text-on-surface-variant">
+                Realizada por Prof. Martín López
+            </p>
+
+        </section>
+
+        <!-- Datos -->
+        <section class="grid grid-cols-2 gap-gutter">
+
+            <div
+                class="bg-surface-container-lowest p-md rounded-xl shadow-[0_2px_8px_rgba(0,0,0,.04)] border border-outline-variant/30 flex flex-col gap-xs">
+
+                <span class="material-symbols-outlined text-tertiary-container">
+                    calendar_today
+                </span>
+
+                <span
+                    class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider mt-1">
+                    Fecha
+                </span>
+
+                <span class="font-title-lg text-title-lg text-on-surface">
+                    24 Oct
+                </span>
+
+            </div>
+
+            <div
+                class="bg-surface-container-lowest p-md rounded-xl shadow-[0_2px_8px_rgba(0,0,0,.04)] border border-outline-variant/30 flex flex-col gap-xs">
+
+                <span class="material-symbols-outlined text-tertiary-container">
+                    schedule
+                </span>
+
+                <span
+                    class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider mt-1">
+                    Horario
+                </span>
+
+                <span class="font-title-lg text-title-lg text-on-surface">
+                    10:00 - 12:00
+                </span>
+
+            </div>
+
+            <div
+                class="col-span-2 bg-surface-container-lowest p-md rounded-xl shadow-[0_2px_8px_rgba(0,0,0,.04)] border border-outline-variant/30 flex items-center justify-between">
+
+                <div class="flex flex-col gap-xs">
+
+                    <span
+                        class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">
+                        Curso
+                    </span>
+
+                    <span class="font-title-lg text-title-lg text-on-surface">
+                        3ro B - Informática
+                    </span>
+
+                </div>
+
+                <div
+                    class="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center text-primary">
+
+                    <span class="material-symbols-outlined">
+                        school
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Equipamiento -->
+        <section
+            class="bg-surface-container-lowest rounded-xl shadow-[0_2px_8px_rgba(0,0,0,.04)] border border-outline-variant/30 overflow-hidden">
+
+            <div
+                class="p-md border-b border-surface-variant bg-surface-bright flex justify-between items-center">
+
+                <div class="flex items-center gap-2 text-primary">
+
+                    <span class="material-symbols-outlined">
+                        laptop_mac
+                    </span>
+
+                    <h3 class="font-title-lg text-title-lg">
+                        Equipamiento
+                    </h3>
+
+                </div>
+
+                <span class="font-headline-md text-headline-md text-on-surface">
+                    x15
+                </span>
+
+            </div>
+
+            <div class="p-md flex flex-col gap-sm">
+
+                <h4
+                    class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider mb-1">
+                    Cajas Asignadas
+                </h4>
+
+                <div class="flex flex-wrap gap-2">
+
+                    <div
+                        class="px-3 py-1.5 bg-secondary-container text-on-secondary-container rounded-lg font-body-md border border-secondary-container flex items-center gap-1">
+
+                        <span class="material-symbols-outlined">
+                            inventory_2
+                        </span>
+
+                        Caja 01
+
+                    </div>
+
+                    <div
+                        class="px-3 py-1.5 bg-secondary-container text-on-secondary-container rounded-lg font-body-md border border-secondary-container flex items-center gap-1">
+
+                        <span class="material-symbols-outlined">
+                            inventory_2
+                        </span>
+
+                        Caja 02
+
+                    </div>
+
+                    <div
+                        class="px-3 py-1.5 bg-secondary-container text-on-secondary-container rounded-lg font-body-md border border-secondary-container flex items-center gap-1">
+
+                        <span class="material-symbols-outlined">
+                            inventory_2
+                        </span>
+
+                        Caja 05
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Observaciones -->
+        <section class="flex flex-col gap-sm">
+
+            <h3 class="font-title-lg text-title-lg text-on-surface flex items-center gap-2">
+
+                <span class="material-symbols-outlined text-on-surface-variant">
+                    notes
+                </span>
+
+                Observaciones de Devolución
+
+            </h3>
+
+            <p class="font-body-md text-body-md text-on-surface-variant">
+                Registra cualquier anomalía o comentario sobre el estado de los equipos al momento de recibirlos.
+            </p>
+
+            <textarea
+                class="block w-full rounded-lg border-outline-variant bg-surface-container-lowest text-on-surface shadow-sm focus:border-primary focus:ring-primary font-body-md p-3 resize-none"
+                rows="3"
+                placeholder="Ej: Faltó un cargador en la Caja 02..."></textarea>
+
+        </section>
+
+    </main>
+
+    <!-- Botón inferior -->
+    <div
+        class="fixed bottom-0 left-0 w-full bg-surface border-t border-outline-variant/20 p-4 shadow-[0_-4px_16px_rgba(0,0,0,.05)] z-40 flex justify-center">
+
+        <div class="max-w-2xl w-full">
+
+            <button
+                class="w-full bg-primary hover:bg-primary/90 active:scale-[0.98] transition-all text-on-primary py-4 rounded-xl font-title-lg flex items-center justify-center gap-2 shadow-sm">
+
+                <span class="material-symbols-outlined">
+                    fact_check
+                </span>
+
+                Marcar como devueltas
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <script src="../js/detalleReserva.js"></script>
+
+</body>
+
+</html>
