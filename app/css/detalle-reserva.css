@@ -1,0 +1,43 @@
+/* ==========================================
+   DETALLE DE RESERVA
+========================================== */
+
+.material-symbols-outlined {
+    font-variation-settings:
+        "FILL" 0,
+        "wght" 400,
+        "GRAD" 0,
+        "opsz" 24;
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c3c6d7;
+    border-radius: 20px;
+}
+
+/* Selección de texto */
+
+::selection {
+    background: #2563eb;
+    color: white;
+}
+
+/* Área de observaciones */
+
+textarea {
+    outline: none;
+}
+
+textarea:focus {
+    transition: .2s;
+}
