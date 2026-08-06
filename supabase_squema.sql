@@ -3,9 +3,9 @@
 -- ==========================================
 
 CREATE TABLE profesores (
-    id UUID not null primary KEY REFERENCES auth.users on delete cascade,
-    nombre text NOT NULL,
-    apellido text NOT NULL,
+    id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+    nombre TEXT NOT NULL,
+    apellido TEXT NOT NULL,
     activo BOOLEAN DEFAULT TRUE
 );
 
@@ -26,7 +26,7 @@ CREATE TABLE notebooks (
     id_notebook INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     numero_inventario INT NOT NULL UNIQUE,
     id_caja INT NOT NULL,
-    estado estado_notebook DEFAULT 'DISPONIBLE',
+    estado estado_notebook NOT NULL DEFAULT 'DISPONIBLE'
     
     FOREIGN KEY (id_caja) REFERENCES cajas(id_caja)
 );
