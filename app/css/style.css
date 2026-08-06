@@ -1,12 +1,22 @@
 /* ==========================
-   Fuente principal
+   Reset
+========================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ==========================
+   Body
 ========================== */
 
 body {
-    font-family: 'Hanken Grotesk', sans-serif;
+    font-family: "Hanken Grotesk", sans-serif;
     min-height: max(884px, 100dvh);
+    -webkit-tap-highlight-color: transparent;
 }
-
 
 /* ==========================
    Material Symbols
@@ -14,12 +24,11 @@ body {
 
 .material-symbols-outlined {
     font-variation-settings:
-        'FILL' 0,
-        'wght' 400,
-        'GRAD' 0,
-        'opsz' 24;
+        "FILL" 0,
+        "wght" 400,
+        "GRAD" 0,
+        "opsz" 24;
 }
-
 
 /* ==========================
    Scrollbar
@@ -43,20 +52,18 @@ body {
     background-color: #a9adbe;
 }
 
-
 /* ==========================
    Ocultar scrollbar
 ========================== */
-
-.no-scrollbar::-webkit-scrollbar {
-    display: none;
-}
 
 .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
 
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
 
 /* ==========================
    Selección de texto
@@ -66,7 +73,6 @@ body {
     background: #2563eb;
     color: white;
 }
-
 
 /* ==========================
    Botones
@@ -81,9 +87,8 @@ button:disabled {
     opacity: .6;
 }
 
-
 /* ==========================
-   Inputs y Textareas
+   Formularios
 ========================== */
 
 input,
@@ -96,9 +101,8 @@ textarea {
     resize: none;
 }
 
-
 /* ==========================
-   Transiciones generales
+   Transiciones
 ========================== */
 
 a,
@@ -109,7 +113,6 @@ textarea {
     transition: .2s ease;
 }
 
-
 /* ==========================
    Imágenes
 ========================== */
@@ -118,7 +121,6 @@ img {
     display: block;
     max-width: 100%;
 }
-
 
 /* ==========================
    Utilidades
@@ -131,4 +133,35 @@ img {
 
 .hidden-scroll::-webkit-scrollbar {
     display: none;
+}
+
+/* ==========================
+   Animaciones
+========================== */
+
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+/* Custom scrollbar for a cleaner look */
+::-webkit-scrollbar {
+    width: 4px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #c3c6d7; /* outline-variant */
+    border-radius: 20px;
 }
