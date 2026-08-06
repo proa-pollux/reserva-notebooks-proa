@@ -1,1 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reserva de Notebooks - Inicio de sesión</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
 
+<body class="bg-background text-on-surface h-screen flex flex-col justify-center items-center px-container-padding">
+
+<main class="w-full max-w-sm flex flex-col items-center">
+
+    <div class="flex flex-col items-center mb-xl">
+        <div class="w-24 h-24 mb-md rounded-2xl bg-surface-container-low shadow-sm flex items-center justify-center p-sm overflow-hidden">
+            <img src="img/logo.png"
+                 alt="Logo Reserva de Notebooks"
+                 class="w-full h-full object-contain mix-blend-multiply">
+        </div>
+
+        <h1 class="font-display-lg text-display-lg text-primary text-center">
+            Reserva de Notebooks
+        </h1>
+    </div>
+
+    <div class="bg-surface-container-lowest w-full rounded-xl shadow-sm p-lg flex flex-col gap-lg border border-surface-variant">
+
+        <form class="flex flex-col gap-gutter w-full">
+
+            <div class="relative w-full group">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-sm pointer-events-none text-on-surface-variant">
+                    <span class="material-symbols-outlined">person</span>
+                </div>
+
+                <input id="username"
+                       type="text"
+                       required
+                       placeholder=" "
+                       class="block w-full px-md pl-10 py-3 rounded-lg border border-outline bg-surface-bright text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary peer transition-colors font-body-lg text-body-lg">
+
+                <label for="username"
+                       class="absolute left-10 top-3 text-on-surface-variant transition-all peer-placeholder-shown:text-body-lg peer-placeholder-shown:top-3 peer-focus:-top-2 peer-focus:text-label-lg peer-focus:bg-surface-container-lowest peer-focus:px-1 peer-focus:text-primary pointer-events-none bg-transparent">
+                    Usuario
+                </label>
+            </div>
+
+            <div class="relative w-full group">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-sm pointer-events-none text-on-surface-variant">
+                    <span class="material-symbols-outlined">lock</span>
+                </div>
+
+                <input id="password"
+                       type="password"
+                       required
+                       placeholder=" "
+                       class="block w-full px-md pl-10 py-3 rounded-lg border border-outline bg-surface-bright text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary peer transition-colors font-body-lg text-body-lg">
+                <label for="password"
+                       class="absolute left-10 top-3 text-on-surface-variant transition-all peer-placeholder-shown:text-body-lg peer-placeholder-shown:top-3 peer-focus:-top-2 peer-focus:text-label-lg peer-focus:bg-surface-container-lowest peer-focus:px-1 peer-focus:text-primary pointer-events-none bg-transparent">
+                    Contraseña
+                </label>
+            </div>
+
+            <button type="submit"
+                    class="mt-sm w-full bg-primary-container text-on-primary-container font-label-lg text-label-lg font-bold py-3 px-md rounded-full shadow-sm hover:bg-primary hover:text-on-primary active:scale-95 transition-all flex justify-center items-center h-12">
+                Iniciar sesión
+            </button>
+
+        </form>
+
+        <div class="flex items-center gap-xs justify-center text-on-surface-variant bg-surface-container-low p-sm rounded-lg">
+            <span class="material-symbols-outlined text-title-lg font-title-lg">info</span>
+            <p class="font-body-md text-body-md">
+                La contraseña inicial es su DNI
+            </p>
+        </div>
+    </div>
+
+</main>
+</body>
+</html>
