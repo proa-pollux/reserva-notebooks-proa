@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva Reserva - Sistema de Gestión</title>
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="../js/tailwind.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@100..900&display=swap" rel="stylesheet"/>
+    
+    <link rel="stylesheet" href="../css/style.css">
+    
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-lg">
+
+    <!-- Barra superior -->
+    <header class="fixed top-0 w-full z-50 bg-surface flex items-center px-md h-12 border-b border-surface-variant">
+        <button class="text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-full p-2 -ml-2 flex items-center justify-center">
+            <span class="material-symbols-outlined">
+                arrow_back
+            </span>
+        </button>
+        <h1 class="ml-2 font-headline-md-mobile text-headline-md-mobile font-bold text-primary">
+            Nueva Reserva
+        </h1>
+    </header>
+
+    <!-- Contenido -->
+
+    <main class="flex-1 mt-12 px-md py-lg pb-32 flex flex-col gap-lg max-w-md mx-auto w-full">
+
+        <!-- Fecha -->
+
+        <section class="flex flex-col gap-sm">
+
+            <label class="font-label-lg text-label-lg text-on-surface-variant">
+                FECHA DE RESERVA
+            </label>
+
+            <div class="relative">
+
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+
+                    <span class="material-symbols-outlined text-outline">
+                        calendar_today
+                    </span>
+
+                </div>
+
+                <input
+                    type="date"
+                    value="2023-11-20"
+                    class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-3 pl-10 pr-4 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-lg text-body-lg">
+            </div>
+        </section>
+        <!-- Curso -->
+        <section class="flex flex-col gap-sm">
+            <label class="font-label-lg text-label-lg text-on-surface-variant">CURSO DESTINO</label>
+            <div class="grid grid-cols-3 gap-3">
+                <button class="bg-surface-container-lowest border border-outline-variant text-on-surface-variant rounded-lg py-3 flex items-center justify-center font-title-lg text-title-lg transition-colors active:scale-95">1°</button>
+                <button class="bg-surface-container-lowest border border-outline-variant text-on-surface-variant rounded-lg py-3 flex items-center justify-center font-title-lg text-title-lg transition-colors active:scale-95">2°</button>
+<!-- Active State Example -->
+                <button class="bg-primary-container text-on-primary-container border border-transparent rounded-lg py-3 flex items-center justify-center font-title-lg text-title-lg transition-colors shadow-sm ring-2 ring-primary-container ring-offset-1 ring-offset-background">3°</button>
+                <button class="bg-surface-container-lowest border border-outline-variant text-on-surface-variant rounded-lg py-3 flex items-center justify-center font-title-lg text-title-lg transition-colors active:scale-95">4°</button>
+                <button class="bg-surface-container-lowest border border-outline-variant text-on-surface-variant rounded-lg py-3 flex items-center justify-center font-title-lg text-title-lg transition-colors active:scale-95">5°</button>
+                <button class="bg-surface-container-lowest border border-outline-variant text-on-surface-variant rounded-lg py-3 flex items-center justify-center font-title-lg text-title-lg transition-colors active:scale-95">6°</button>
+</div>
+</section>
+
+        <!-- Horarios -->
+
+        <section class="grid grid-cols-2 gap-md">
+            <div class="flex flex-col gap-sm">
+                <label class="font-label-lg text-label-lg text-on-surface-variant">
+                    HORA INICIO
+                </label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <span class="material-symbols-outlined text-outline">
+                            schedule
+                        </span>
+                    </div>
+                    <input
+                        type="time"
+                        value="08:00"
+                        class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-3 pl-10 pr-3">
+                </div>
+            </div>
+            <div class="flex flex-col gap-sm">
+
+                <label class="font-label-lg text-label-lg text-on-surface-variant">
+                    HORA FIN
+                </label>
+                <div class="relative">
+
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+
+                        <span class="material-symbols-outlined text-outline">
+                            schedule
+                        </span>
+                    </div>
+                    <input
+                        type="time"
+                        value="09:30"
+                        class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-3 pl-10 pr-3">
+                </div>
+            </div>
+        </section>
+      
+                <!-- Cantidad de notebooks -->
+        <section class="flex flex-col gap-sm mt-2">
+            <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex items-center justify-between shadow-sm">
+                <div class="flex items-center gap-3">
+                    <div class="bg-surface-container-high p-2 rounded-full text-on-surface-variant">
+                        <span class="material-symbols-outlined">
+                            laptop_mac
+                        </span>
+                    </div>
+                    <div>
+                        <h3 class="font-title-lg text-title-lg text-on-surface">
+                            Notebooks
+                        </h3>
+                        <p class="font-label-lg text-label-lg text-on-surface-variant">
+                            Disponibles: 24
+                        </p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button class="w-10 h-10 rounded-full bg-surface-container-high text-on-surface hover:bg-surface-variant flex items-center justify-center">
+                        <span class="material-symbols-outlined">
+                            remove
+                        </span>
+                    </button>
+                    <span class="font-display-lg text-display-lg text-primary w-8 text-center">
+                        15
+                    </span>
+                    <button class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container hover:opacity-90 flex items-center justify-center shadow-sm">
+                        <span class="material-symbols-outlined">
+                            add
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Botón inferior -->
+    <div class="fixed bottom-0 left-0 w-full bg-surface border-t border-surface-variant p-md z-40">
+
+        <div class="max-w-md mx-auto w-full">
+
+            <button class="w-full bg-primary text-on-primary rounded-full py-4 font-label-lg uppercase tracking-widest shadow-md flex justify-center items-center gap-2">
+                Continuar
+                <span class="material-symbols-outlined">
+                    arrow_forward
+                </span>
+            </button>
+        </div>
+    </div>
+</body>
+
+</html>

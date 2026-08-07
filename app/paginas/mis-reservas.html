@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mis Reservas - Gestión Técnica</title>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="../js/tailwind.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+
+<body class="bg-surface text-on-surface min-h-screen flex antialiased">
+
+    <!-- Menú lateral -->
+
+    <aside class="hidden md:flex flex-col py-lg bg-surface-container-low h-full w-80 rounded-r-xl shadow-sm fixed inset-y-0 left-0 z-50">
+
+        <div class="px-md mb-xl">
+
+            <h2 class="font-display-lg text-display-lg text-primary">
+                Gestión Técnica
+            </h2>
+
+        </div>
+
+        <nav class="flex-1 flex flex-col gap-sm">
+
+            <a href="menu.html"
+                class="text-on-surface-variant mx-2 px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
+
+                <span class="material-symbols-outlined">
+                    home
+                </span>
+
+                <span class="font-label-lg">
+                    Inicio
+                </span>
+
+            </a>
+
+            <a href="reservar.html"
+                class="text-on-surface-variant mx-2 px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
+
+                <span class="material-symbols-outlined">
+                    laptop_mac
+                </span>
+
+                <span class="font-label-lg">
+                    Reservar notebooks
+                </span>
+
+            </a>
+
+            <a href="ver-reservas.html"
+                class="text-on-surface-variant mx-2 px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
+
+                <span class="material-symbols-outlined">
+                    event_note
+                </span>
+
+                <span class="font-label-lg">
+                    Ver reservas
+                </span>
+
+            </a>
+
+            <a href="mis-reservas.html"
+                class="bg-secondary-container text-on-secondary-container rounded-full mx-2 px-4 py-3 flex items-center gap-md">
+
+                <span class="material-symbols-outlined">
+                    history
+                </span>
+
+                <span class="font-label-lg">
+                    Mis reservas
+                </span>
+
+            </a>
+
+        </nav>
+
+        <div class="mt-auto px-2">
+
+            <a href="index.html"
+                class="text-on-surface-variant mx-2 px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
+
+                <span class="material-symbols-outlined">
+                    logout
+                </span>
+
+                <span class="font-label-lg">
+                    Cerrar sesión
+                </span>
+
+            </a>
+
+        </div>
+
+    </aside>
+
+    <main class="flex-1 md:ml-80 flex flex-col min-h-screen">
+
+        <header class="bg-surface fixed top-0 md:left-80 right-0 flex items-center px-md h-12 z-40">
+
+            <button class="md:hidden mr-md text-on-surface-variant">
+
+                <span class="material-symbols-outlined">
+                    menu
+                </span>
+
+            </button>
+
+            <h1 class="font-headline-md-mobile text-headline-md-mobile font-bold text-primary">
+
+                Reserva de Notebooks
+
+            </h1>
+
+        </header>
+
+        <div class="flex-1 pt-16 pb-24 md:pb-8 px-md md:px-xl max-w-4xl w-full mx-auto">
+
+            <div class="mb-lg mt-sm">
+
+                <h2 class="font-display-lg text-display-lg text-on-surface">
+
+                    Mis Reservas
+
+                </h2>
+
+                <p class="font-body-md text-on-surface-variant">
+
+                    Historial y estado de tus solicitudes de equipamiento.
+
+                </p>
+
+            </div>
+
+            <div class="flex flex-col gap-md">
+                                <!-- Reserva en curso -->
+
+                <div class="bg-surface-container-lowest shadow-sm rounded-xl p-md border border-outline-variant/30 hover:shadow-md transition-shadow">
+
+                    <div class="flex justify-between items-start mb-sm">
+
+                        <div class="flex items-center gap-sm">
+
+                            <div class="bg-primary-container/20 p-2 rounded-lg text-primary">
+
+                                <span class="material-symbols-outlined">
+                                    laptop_mac
+                                </span>
+
+                            </div>
+
+                            <div>
+
+                                <h3 class="font-title-lg text-title-lg">
+                                    3ro "B" Informática
+                                </h3>
+
+                                <p class="font-body-md text-on-surface-variant">
+                                    25 Notebooks • Carrito A
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <span class="bg-primary-container text-on-primary-container px-3 py-1 rounded-full font-label-lg">
+                            EN CURSO
+                        </span>
+
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-sm mt-md pt-md border-t border-outline-variant/20">
+
+                        <div class="flex items-center gap-xs">
+
+                            <span class="material-symbols-outlined text-[18px]">
+                                calendar_today
+                            </span>
+
+                            <span>Hoy, 24 Oct</span>
+
+                        </div>
+
+                        <div class="flex items-center gap-xs">
+
+                            <span class="material-symbols-outlined text-[18px]">
+                                schedule
+                            </span>
+
+                            <span>10:30 - 12:40</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Reserva pendiente -->
+
+                <div class="bg-surface-container-lowest shadow-sm rounded-xl p-md border border-outline-variant/30 hover:shadow-md transition-shadow">
+
+                    <div class="flex justify-between items-start mb-sm">
+
+                        <div class="flex items-center gap-sm">
+
+                            <div class="bg-surface-variant p-2 rounded-lg">
+
+                                <span class="material-symbols-outlined">
+                                    laptop_mac
+                                </span>
+
+                            </div>
+
+                            <div>
+
+                                <h3 class="font-title-lg">
+                                    5to "A" Electromecánica
+                                </h3>
+
+                                <p class="font-body-md text-on-surface-variant">
+                                    15 Notebooks • Sala de Cómputos
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                        <span class="bg-tertiary-container text-on-tertiary-container px-3 py-1 rounded-full font-label-lg">
+                            PENDIENTE
+                        </span>
+
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-sm mt-md pt-md border-t border-outline-variant/20">
+
+                        <div class="flex items-center gap-xs">
+
+                            <span class="material-symbols-outlined text-[18px]">
+                                calendar_today
+                            </span>
+
+                            <span>Mañana, 25 Oct</span>
+
+                        </div>
+
+                        <div class="flex items-center gap-xs">
+
+                            <span class="material-symbols-outlined text-[18px]">
+                                schedule
+                            </span>
+
+                            <span>14:00 - 16:15</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reserva finalizada -->
+
+                <div class="bg-surface-container-lowest shadow-sm rounded-xl p-md border border-outline-variant/30 opacity-75 hover:opacity-100 transition-all">
+                    <div class="flex justify-between items-start mb-sm">
+                        <div class="flex items-center gap-sm">
+                            <div class="bg-surface-variant p-2 rounded-lg">
+                                <span class="material-symbols-outlined">
+                                    laptop_mac
+                                </span>
+                            </div>
+
+                            <div>
+                                <h3 class="font-title-lg">
+                                    1ro "C" Ciclo Básico
+                                </h3>
+
+                                <p class="font-body-md text-on-surface-variant">
+                                    30 Notebooks • Carrito B
+                                </p>
+                            </div>
+                        </div>
+
+                        <span class="bg-surface-variant text-on-surface-variant px-3 py-1 rounded-full font-label-lg">
+                            DEVUELTA
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-sm mt-md pt-md border-t border-outline-variant/20">
+                        <div class="flex items-center gap-xs">
+                            <span class="material-symbols-outlined text-[18px]">
+                                calendar_today
+                            </span>
+
+                            <span>Ayer, 23 Oct</span>
+
+                        </div>
+
+                        <div class="flex items-center gap-xs">
+
+                            <span class="material-symbols-outlined text-[18px]">
+                                schedule
+                            </span>
+
+                            <span>08:00 - 10:15</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- Barra inferior -->
+    <nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-2 bg-surface shadow-lg">
+        <a href="menu.html" class="flex flex-col items-center p-2">
+            <span class="material-symbols-outlined">home</span>
+            <span class="font-label-lg">Inicio</span>
+        </a>
+        <a href="reservar.html" class="flex flex-col items-center p-2">
+            <span class="material-symbols-outlined">add_circle</span>
+            <span class="font-label-lg">Reserva</span>
+        </a>
+
+        <a href="mis-reservas.html"
+            class="flex flex-col items-center bg-primary-container text-on-primary-container rounded-2xl px-4 py-1">
+            <span class="material-symbols-outlined">
+                receipt_long
+            </span>
+            <span class="font-label-lg">
+                Mis Reservas
+            </span>
+        </a>
+    </nav>
+</body>
+
+</html>

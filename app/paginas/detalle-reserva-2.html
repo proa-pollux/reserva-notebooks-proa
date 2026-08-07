@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle de Reserva</title>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="../js/tailwind.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    
+</head>
+
+<body class="bg-background text-on-background min-h-screen flex flex-col antialiased">
+
+<header class="bg-surface dark:bg-background text-primary dark:text-primary-fixed fixed top-0 w-full flat no shadows flex items-center px-md h-12 z-50">
+    <button class="mr-sm text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-full p-1 active:opacity-80 transition-opacity flex items-center justify-center">
+        <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">
+            arrow_back
+        </span>
+    </button>
+
+    <h1 class="font-headline-md-mobile text-headline-md-mobile font-bold text-primary dark:text-primary-fixed flex-grow text-center mr-8">
+        Detalle de Reserva
+    </h1>
+</header>
+
+<main class="flex-grow pt-[72px] pb-[96px] px-md max-w-3xl mx-auto w-full flex flex-col gap-md">
+
+    <!-- Status Card -->
+    <div class="bg-surface-container-lowest rounded-xl p-md shadow-[0_4px_8px_rgba(0,0,0,0.05)] border border-outline-variant flex flex-col gap-sm">
+
+        <div class="flex justify-between items-start">
+            <div>
+                <h2 class="font-title-lg text-title-lg text-on-surface">
+                    Notebook HP EliteBook 840
+                </h2>
+
+                <p class="font-body-md text-body-md text-on-surface-variant">
+                    ID: NB-840-G8-015
+                </p>
+            </div>
+
+            <div class="bg-tertiary-container/15 text-tertiary-container px-3 py-1 rounded-full flex items-center gap-xs">
+                <span class="material-symbols-outlined text-[16px]" style="font-variation-settings:'FILL' 1;">
+                    schedule
+                </span>
+
+                <span class="font-label-lg text-label-lg uppercase">
+                    PENDIENTE
+                </span>
+            </div>
+        </div>
+
+        <div class="h-px bg-surface-variant w-full my-sm"></div>
+
+        <div class="grid grid-cols-2 gap-gutter">
+
+            <div class="flex flex-col gap-xs">
+                <span class="font-label-lg text-label-lg text-on-surface-variant">
+                    Fecha de Solicitud
+                </span>
+
+                <div class="flex items-center gap-xs text-on-surface">
+                    <span class="material-symbols-outlined text-[20px] text-primary">
+                        calendar_month
+                    </span>
+
+                    <span class="font-body-lg text-body-lg">
+                        15 Oct 2023
+                    </span>
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-xs">
+                <span class="font-label-lg text-label-lg text-on-surface-variant">
+                    Hora Solicitada
+                </span>
+
+                <div class="flex items-center gap-xs text-on-surface">
+                    <span class="material-symbols-outlined text-[20px] text-primary">
+                        schedule
+                    </span>
+
+                    <span class="font-body-lg text-body-lg">
+                        09:00 - 11:30
+                    </span>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mt-sm flex flex-col gap-xs">
+
+            <span class="font-label-lg text-label-lg text-on-surface-variant">
+                Laboratorio / Aula
+            </span>
+
+            <div class="flex items-center gap-xs text-on-surface">
+
+                <span class="material-symbols-outlined text-[20px] text-primary">
+                    location_on
+                </span>
+
+                <span class="font-body-lg text-body-lg">
+                    Laboratorio de Programación Avanzada (Ala Norte, Piso 2)
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Usuario -->
+
+    <div class="bg-surface-container-lowest rounded-xl p-md shadow-[0_4px_8px_rgba(0,0,0,0.05)] border border-outline-variant flex flex-col gap-sm">
+
+        <h3 class="font-title-lg text-title-lg text-on-surface mb-xs">
+            Datos del Solicitante
+        </h3>
+
+        <div class="flex items-center gap-md">
+
+            <div class="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center">
+                <span class="font-headline-md text-headline-md">JP</span>
+            </div>
+
+            <div class="flex flex-col">
+                <span class="font-body-lg text-body-lg font-bold text-on-surface">
+                    Juan Pérez
+                </span>
+
+                <span class="font-body-md text-body-md text-on-surface-variant">
+                    Profesor - Dpto. de Informática
+                </span>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Mensaje -->
+
+    <div class="bg-surface-variant rounded-lg p-sm flex items-start gap-sm">
+
+        <span class="material-symbols-outlined text-secondary">
+            info
+        </span>
+
+        <p class="font-body-md text-body-md text-on-surface-variant">
+            Esta reserva está pendiente de aprobación por el área de Gestión Técnica. Recibirás una notificación cuando el estado cambie.
+        </p>
+
+    </div>
+
+</main>
+
+<div class="fixed bottom-0 left-0 w-full bg-surface dark:bg-background border-t border-outline-variant p-md flex justify-center z-50">
+
+    <button class="w-full max-w-md bg-error text-on-error font-label-lg text-label-lg rounded-full py-4 flex items-center justify-center gap-sm shadow-md hover:bg-error/90 active:scale-95 transition-all">
+
+        <span class="material-symbols-outlined">
+            cancel
+        </span>
+
+        Cancelar reserva
+
+    </button>
+
+</div>
+
+</body>
+</html>
