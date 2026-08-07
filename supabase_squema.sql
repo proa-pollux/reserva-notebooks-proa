@@ -2,17 +2,6 @@
 -- Base de datos: Reserva de Notebooks CORREGIDO
 -- ==========================================
 
--- SE BORRA CUALQUIER DATO EXISTENTE ANTES DE EMPEZAR CON LAS TABLAS Y LOS DATOS.
-DROP TABLE IF EXISTS reserva_notebooks CASCADE;
-DROP TABLE IF EXISTS reservas CASCADE;
-DROP TABLE IF EXISTS notebooks CASCADE;
-DROP TABLE IF EXISTS cajas CASCADE;
-DROP TABLE IF EXISTS cursos CASCADE;
-DROP TABLE IF EXISTS profesores CASCADE;
-
-DROP TYPE IF EXISTS estado_notebook;
-DROP TYPE IF EXISTS estado_reserva;
-
 --CREACIÓN TABLA PROFESORES CON UUID
 CREATE TABLE profesores (
   id UUID primary key references auth.users(id) on delete cascade,
