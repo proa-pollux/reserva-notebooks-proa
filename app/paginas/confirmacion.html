@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html class="h-full" lang="es">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Confirmación de Reserva</title>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="../js/tailwind.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+
+    <link rel="stylesheet" href="../css/style.css">
+    
+</head>
+<body class="bg-background text-on-background h-full font-body-lg flex flex-col bg-white text-black">
+    <!-- Barra superior -->
+    <header class="fixed top-0 w-full bg-surface z-50 flex items-center px-md h-12">
+        <div class="flex items-center gap-4">
+            <span class="material-symbols-outlined text-primary">
+                menu
+            </span>
+            <h1 class="font-headline-md-mobile text-headline-md-mobile font-bold text-primary">
+                Reserva de Notebooks
+            </h1>
+        </div>
+    </header>
+    <!-- Contenido -->
+    <main class="flex-grow flex flex-col items-center justify-center pt-16 pb-lg px-container-padding">
+
+        <div class="w-full max-w-sm flex flex-col items-center gap-xl animate-[fade-in-up_0.5s_ease-out]">
+            <!-- Icono -->
+            <div class="bg-tertiary-fixed w-24 h-24 rounded-full flex items-center justify-center shadow-sm">
+                <span class="material-symbols-outlined text-[48px] text-tertiary">
+                    check_circle
+                </span>
+            </div>
+            <div class="text-center">
+                <h2 class="font-display-lg text-display-lg text-on-surface">
+                    ¡Reserva Confirmada!
+                </h2>
+                <p class="font-body-md text-body-md text-on-surface-variant mt-sm">
+                    Tu equipo está listo para ser retirado.
+                </p>
+            </div>
+            <!-- Resumen -->
+            <div class="w-full bg-surface-container-lowest rounded-xl shadow-sm p-md flex flex-col gap-sm">
+                <h3 class="font-title-lg text-title-lg text-on-surface mb-xs border-b border-outline-variant pb-xs">
+                    Resumen
+                </h3>
+                <div class="flex justify-between py-xs">
+                    <span class="font-label-lg text-on-surface-variant">
+                        Fecha
+                    </span>
+                    <span class="font-body-md font-semibold">
+                        15 Nov 2023
+                    </span>
+                </div>
+                <div class="flex justify-between py-xs">
+                    <span class="font-label-lg text-on-surface-variant">
+                        Curso
+                    </span>
+                    <span class="font-body-md font-semibold">
+                        4to Año C
+                    </span>
+                </div>
+                <div class="flex justify-between py-xs">
+                    <span class="font-label-lg text-on-surface-variant">
+                        Horario
+                    </span>
+                    <span class="font-body-md font-semibold">
+                        10:00 - 12:00
+                    </span>
+                </div>
+                <div class="flex justify-between py-xs">
+                    <span class="font-label-lg text-on-surface-variant">
+                        Cantidad
+                    </span>
+                    <span class="font-body-md font-semibold">
+                        7 Notebooks
+                    </span>
+                </div>
+            </div>
+                        <!-- Cajas asignadas -->
+            <div class="w-full bg-primary-container rounded-xl shadow-md p-md flex flex-col gap-sm relative overflow-hidden">
+                <div class="absolute -right-4 -top-4 opacity-10">
+                    <span class="material-symbols-outlined text-[100px] text-on-primary-container">
+                        inventory_2
+                    </span>
+                </div>
+                <h3 class="font-title-lg text-title-lg text-on-primary-container relative z-10">
+                    Cajas Asignadas
+                </h3>
+                <ul class="space-y-sm relative z-10">
+                    <li class="bg-surface-container-lowest/20 backdrop-blur-sm rounded-lg p-sm flex items-center gap-sm">
+                        <span class="material-symbols-outlined text-on-primary-container">
+                            inventory_2
+                        </span>
+                        <span class="font-body-md text-on-primary-container">
+                            Caja 1 completa (Notebooks 1 a 5)
+                        </span>
+                    </li>
+                    <li class="bg-surface-container-lowest/20 backdrop-blur-sm rounded-lg p-sm flex items-center gap-sm">
+                        <span class="material-symbols-outlined text-on-primary-container">
+                            inventory_2
+                        </span>
+                        <span class="font-body-md text-on-primary-container">
+                            Caja 2: Notebooks 6 y 7
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <!-- Aviso -->
+            <div class="w-full bg-error-container rounded-lg p-sm flex items-start gap-sm">
+                <span class="material-symbols-outlined text-on-error-container mt-1">
+                    warning
+                </span>
+                <p class="font-body-md text-on-error-container">
+                    <strong>Importante:</strong>
+                    Recordá devolver los equipos a tiempo. Existe una tolerancia de 15 minutos antes de aplicar penalizaciones.
+                </p>
+            </div>
+            <!-- Botón -->
+            <button class="w-full h-12 bg-primary text-on-primary rounded-full flex items-center justify-center gap-sm font-label-lg shadow-sm mt-md">
+                <span class="material-symbols-outlined">
+                    home
+                </span>
+                Volver al inicio
+            </button>
+        </div>
+    </main>
+</body>
+
+</html>

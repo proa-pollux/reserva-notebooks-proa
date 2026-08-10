@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Gestión de Notebooks - Menú Principal</title>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="../js/tailwind.js"></script>
+    <script src="../js/menu.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="../css/style.css">
+    
+</head>
+
+<body class="bg-background text-on-background min-h-screen flex flex-col md:flex-row">
+
+<header class="fixed top-0 w-full bg-surface dark:bg-background flex items-center px-md h-12 z-50 md:hidden">
+
+    <button id="mobile-menu-btn"
+        class="p-2 text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-full">
+
+        <span class="material-symbols-outlined">menu</span>
+
+    </button>
+
+    <div class="ml-sm font-headline-md-mobile text-headline-md-mobile font-bold text-primary">
+        Reserva de Notebooks
+    </div>
+
+</header>
+
+<nav id="side-nav"
+    class="fixed inset-y-0 left-0 z-[60] flex flex-col py-lg bg-surface-container-low h-full w-80 rounded-r-xl shadow-sm transform -translate-x-full md:translate-x-0 md:relative transition-transform duration-300">
+
+    <div class="px-lg pb-lg mb-md border-b border-outline-variant">
+        <h2 class="font-display-lg text-display-lg text-primary">
+            Gestión Técnica
+        </h2>
+    </div>
+
+    <div class="flex-1 overflow-y-auto">
+
+        <a href="menu.html"
+            class="bg-secondary-container text-on-secondary-container rounded-full mx-2 px-4 py-3 flex items-center gap-md">
+
+            <span class="material-symbols-outlined">home</span>
+
+            <span class="font-label-lg">
+                Inicio
+            </span>
+
+        </a>
+
+        <a href="reservar.html"
+            class="text-on-surface-variant mx-2 px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
+
+            <span class="material-symbols-outlined">laptop_mac</span>
+
+            <span class="font-label-lg">
+                Reservar notebooks
+            </span>
+
+        </a>
+
+        <a href="ver-reservas.html"
+            class="text-on-surface-variant mx-2 px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
+
+            <span class="material-symbols-outlined">event_note</span>
+
+            <span class="font-label-lg">
+                Ver reservas
+            </span>
+
+        </a>
+
+        <a href="mis-reservas.html"
+            class="text-on-surface-variant mx-2 px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
+
+            <span class="material-symbols-outlined">history</span>
+
+            <span class="font-label-lg">
+                Mis reservas
+            </span>
+
+        </a>
+                <div class="mt-auto px-md pb-lg">
+
+            <a href="index.html"
+                class="text-on-surface-variant px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
+
+                <span class="material-symbols-outlined">
+                    logout
+                </span>
+
+                <span class="font-label-lg">
+                    Cerrar sesión
+                </span>
+
+            </a>
+
+        </div>
+
+    </nav>
+
+    <div id="drawer-overlay"
+        class="fixed inset-0 bg-black/40 z-50 hidden md:hidden">
+    </div>
+
+    <main class="flex-1 pt-16 md:pt-8 md:ml-8 px-container-padding pb-lg">
+
+        <div class="max-w-6xl mx-auto">
+
+            <h1 class="font-display-lg text-display-lg text-primary mb-xs">
+                Menú Principal
+            </h1>
+
+            <p class="font-body-lg text-on-surface-variant mb-xl">
+                Seleccioná una opción para continuar.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-lg">
+
+                <a href="reservar.html"
+                    class="bg-surface-container-low rounded-xl p-lg shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
+
+                    <div class="w-14 h-14 rounded-full bg-primary-container flex items-center justify-center mb-md">
+
+                        <span class="material-symbols-outlined text-primary text-3xl">
+                            laptop_mac
+                        </span>
+
+                    </div>
+
+                    <h2 class="font-title-lg text-title-lg mb-xs">
+                        Reservar notebooks
+                    </h2>
+
+                    <p class="text-on-surface-variant">
+                        Crear una nueva reserva indicando curso, horario y cantidad de equipos.
+                    </p>
+
+                </a>
+
+                <a href="ver-reservas.html"
+                    class="bg-surface-container-low rounded-xl p-lg shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
+
+                    <div class="w-14 h-14 rounded-full bg-secondary-container flex items-center justify-center mb-md">
+
+                        <span class="material-symbols-outlined text-secondary text-3xl">
+                            event_note
+                        </span>
+
+                    </div>
+
+                    <h2 class="font-title-lg text-title-lg mb-xs">
+                        Ver reservas
+                    </h2>
+
+                    <p class="text-on-surface-variant">
+                        Consultá todas las reservas realizadas para cualquier día.
+                    </p>
+
+                </a>
+
+                <a href="mis-reservas.html"
+                    class="bg-surface-container-low rounded-xl p-lg shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
+
+                    <div class="w-14 h-14 rounded-full bg-tertiary-fixed flex items-center justify-center mb-md">
+
+                        <span class="material-symbols-outlined text-tertiary text-3xl">
+                            history
+                        </span>
+
+                    </div>
+
+                    <h2 class="font-title-lg text-title-lg mb-xs">
+                        Mis reservas
+                    </h2>
+
+                    <p class="text-on-surface-variant">
+                        Revisá tus reservas, cancelalas o marcá la devolución de las notebooks.
+                    </p>
+                </a>
+            </div>
+        </div>
+    </main>
+    <script src="../js/menu.js"></script>
+</body>
+</html>

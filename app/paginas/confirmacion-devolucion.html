@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html class="h-full" lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmación de Devolución</title>
+
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="../js/tailwind.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    
+</head>
+
+<body class="bg-background text-on-background h-full flex flex-col items-center justify-center p-md">
+
+    <main
+        class="w-full max-w-md bg-surface-container-lowest rounded-xl p-xl flex flex-col items-center text-center relative overflow-hidden">
+
+        <div class="absolute inset-0 shadow-[0_4px_8px_rgba(0,0,0,0.05)] pointer-events-none rounded-xl"></div>
+
+        <div class="w-24 h-24 bg-tertiary-fixed rounded-full flex items-center justify-center mb-lg">
+            <span class="material-symbols-outlined text-[64px] text-tertiary"
+                style="font-variation-settings:'FILL' 1;">
+                check_circle
+            </span>
+        </div>
+
+        <h1 class="font-display-lg text-display-lg text-on-surface mb-sm">
+            ¡Devolución Confirmada!
+        </h1>
+
+        <p class="font-body-lg text-body-lg text-on-surface-variant mb-xl">
+            Los equipos han sido registrados correctamente en el sistema.
+        </p>
+
+        <div class="w-full bg-surface-container-low rounded-lg p-md mb-xl text-left border border-outline-variant/30">
+
+            <h2 class="font-title-lg text-title-lg text-on-surface mb-md pb-sm border-b border-outline-variant/30">
+                Resumen de la reserva
+            </h2>
+
+            <div class="flex flex-col gap-sm">
+
+                <div class="flex justify-between items-center">
+                    <span class="font-body-md text-body-md text-on-surface-variant">Fecha</span>
+                    <span class="font-body-lg text-body-lg text-on-surface font-semibold">
+                        24 Oct 2023
+                    </span>
+                </div>
+
+                <div class="flex justify-between items-center">
+                    <span class="font-body-md text-body-md text-on-surface-variant">Curso</span>
+                    <span class="font-body-lg text-body-lg text-on-surface font-semibold">
+                        3° A - Informática
+                    </span>
+                </div>
+
+                <div class="flex justify-between items-center">
+                    <span class="font-body-md text-body-md text-on-surface-variant">Horario</span>
+                    <span class="font-body-lg text-body-lg text-on-surface font-semibold">
+                        10:15 - 11:45
+                    </span>
+                </div>
+
+                <div class="flex justify-between items-center mt-sm pt-sm border-t border-outline-variant/20">
+                    <span class="font-body-md text-body-md text-on-surface-variant">
+                        Cantidad Devuelta
+                    </span>
+
+                    <span class="font-body-lg text-body-lg text-primary font-bold">
+                        15 Notebooks
+                    </span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <button
+            class="w-full h-12 bg-primary text-on-primary font-label-lg text-label-lg rounded-full flex items-center justify-center transition-all hover:bg-primary-fixed-dim hover:text-on-primary-fixed hover:shadow-md active:scale-[0.98]">
+
+            Volver al inicio
+
+        </button>
+
+    </main>
+
+</body>
+
+</html>
+
+</body>
+
+</html>
