@@ -4,10 +4,10 @@
 
 --CREACIÓN TABLA PROFESORES CON UUID
 CREATE TABLE profesores (
-  id UUID primary key references auth.users(id) on delete cascade,
-  nombre text not null,
-  apellido text not null,
-  activo boolean default true
+    id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
+    nombre TEXT NOT NULL,
+    apellido TEXT NOT NULL,
+    activo BOOLEAN DEFAULT TRUE
 );
 
 --CREACIÓN TABLA CURSOS
@@ -30,7 +30,7 @@ CREATE TABLE notebooks (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     numero_inventario INT NOT NULL UNIQUE,
     id_caja INT NOT NULL,
-    estado estado_notebook DEFAULT 'DISPONIBLE',
+    estado estado_notebook NOT NULL DEFAULT 'DISPONIBLE'
     
     FOREIGN KEY (id_caja) REFERENCES cajas(id)
 );
