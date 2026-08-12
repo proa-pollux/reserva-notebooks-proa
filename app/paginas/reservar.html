@@ -8,6 +8,8 @@
     
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script src="../js/tailwind.js"></script>
+    <script defer src="../js/reservar.js"></script>
+    <script src="../js/frontend.js" type="module"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -61,19 +63,59 @@
                     class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-3 pl-10 pr-4 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-lg text-body-lg">
             </div>
         </section>
-        <!-- Curso -->
+        
+                <!-- Curso -->
         <section class="flex flex-col gap-sm">
-            <label class="font-label-lg text-label-lg text-on-surface-variant">CURSO DESTINO</label>
-            <div class="grid grid-cols-3 gap-3">
-                <button class="bg-surface-container-lowest border border-outline-variant text-on-surface-variant rounded-lg py-3 flex items-center justify-center font-title-lg text-title-lg transition-colors active:scale-95">1°</button>
-                <button class="bg-surface-container-lowest border border-outline-variant text-on-surface-variant rounded-lg py-3 flex items-center justify-center font-title-lg text-title-lg transition-colors active:scale-95">2°</button>
-<!-- Active State Example -->
-                <button class="bg-primary-container text-on-primary-container border border-transparent rounded-lg py-3 flex items-center justify-center font-title-lg text-title-lg transition-colors shadow-sm ring-2 ring-primary-container ring-offset-1 ring-offset-background">3°</button>
-                <button class="bg-surface-container-lowest border border-outline-variant text-on-surface-variant rounded-lg py-3 flex items-center justify-center font-title-lg text-title-lg transition-colors active:scale-95">4°</button>
-                <button class="bg-surface-container-lowest border border-outline-variant text-on-surface-variant rounded-lg py-3 flex items-center justify-center font-title-lg text-title-lg transition-colors active:scale-95">5°</button>
-                <button class="bg-surface-container-lowest border border-outline-variant text-on-surface-variant rounded-lg py-3 flex items-center justify-center font-title-lg text-title-lg transition-colors active:scale-95">6°</button>
-</div>
-</section>
+            <label class="font-label-lg text-label-lg text-on-surface-variant">
+                CURSO DESTINO
+            </label>
+
+            <div id="cursos-container" class="grid grid-cols-3 gap-3">
+
+                <button
+                    type="button"
+                    class="curso-btn bg-surface-container-lowest border border-outline-variant text-on-surface-variant rounded-lg py-3 flex items-center justify-center font-title-lg text-title-lg transition-colors active:scale-95"
+                    data-curso="1">
+                    1°
+                </button>
+
+                <button
+                    type="button"
+                    class="curso-btn bg-surface-container-lowest border border-outline-variant text-on-surface-variant rounded-lg py-3 flex items-center justify-center font-title-lg text-title-lg transition-colors active:scale-95"
+                    data-curso="2">
+                    2°
+                </button>
+
+                <button
+                    type="button"
+                    class="curso-btn bg-surface-container-lowest border border-outline-variant text-on-surface-variant rounded-lg py-3 flex items-center justify-center font-title-lg text-title-lg transition-colors active:scale-95"
+                    data-curso="3">
+                    3°
+                </button>
+
+                <button
+                    type="button"
+                    class="curso-btn bg-surface-container-lowest border border-outline-variant text-on-surface-variant rounded-lg py-3 flex items-center justify-center font-title-lg text-title-lg transition-colors active:scale-95"
+                    data-curso="4">
+                    4°
+                </button>
+
+                <button
+                    type="button"
+                    class="curso-btn bg-surface-container-lowest border border-outline-variant text-on-surface-variant rounded-lg py-3 flex items-center justify-center font-title-lg text-title-lg transition-colors active:scale-95"
+                    data-curso="5">
+                    5°
+                </button>
+
+                <button
+                    type="button"
+                    class="curso-btn bg-surface-container-lowest border border-outline-variant text-on-surface-variant rounded-lg py-3 flex items-center justify-center font-title-lg text-title-lg transition-colors active:scale-95"
+                    data-curso="6">
+                    6°
+                </button>
+
+            </div>
+        </section>
 
         <!-- Horarios -->
 
@@ -118,38 +160,65 @@
                 <!-- Cantidad de notebooks -->
         <section class="flex flex-col gap-sm mt-2">
             <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex items-center justify-between shadow-sm">
+
                 <div class="flex items-center gap-3">
                     <div class="bg-surface-container-high p-2 rounded-full text-on-surface-variant">
                         <span class="material-symbols-outlined">
                             laptop_mac
                         </span>
                     </div>
+
                     <div>
                         <h3 class="font-title-lg text-title-lg text-on-surface">
                             Notebooks
                         </h3>
+
                         <p class="font-label-lg text-label-lg text-on-surface-variant">
-                            Disponibles: 24
+                            Disponibles: <span id="notebooks-disponibles">105</span>
                         </p>
                     </div>
                 </div>
+
                 <div class="flex items-center gap-4">
-                    <button class="w-10 h-10 rounded-full bg-surface-container-high text-on-surface hover:bg-surface-variant flex items-center justify-center">
+
+                    <!-- Botón disminuir -->
+                    <button
+                        id="btn-restar"
+                        type="button"
+                        class="w-10 h-10 rounded-full bg-surface-container-high text-on-surface hover:bg-surface-variant flex items-center justify-center">
                         <span class="material-symbols-outlined">
                             remove
                         </span>
                     </button>
-                    <span class="font-display-lg text-display-lg text-primary w-8 text-center">
-                        15
+
+                    <!-- Cantidad -->
+                    <span
+                        id="cantidad-notebooks"
+                        class="font-display-lg text-display-lg text-primary w-8 text-center">
+                        25
                     </span>
-                    <button class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container hover:opacity-90 flex items-center justify-center shadow-sm">
+
+                    <!-- Botón aumentar -->
+                    <button
+                        id="btn-sumar"
+                        type="button"
+                        class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container hover:opacity-90 flex items-center justify-center shadow-sm">
                         <span class="material-symbols-outlined">
                             add
                         </span>
                     </button>
+
                 </div>
             </div>
         </section>
+
+        <!-- Dentro de la sección de datos de la reserva -->
+        <label for="profesorSelect">Seleccione el Profesor:</label>
+        <select id="profesorSelect" required>
+            <option value="">Cargando profesores...</option>
+
+        </select>
+
     </main>
     <!-- Botón inferior -->
     <div class="fixed bottom-0 left-0 w-full bg-surface border-t border-surface-variant p-md z-40">
