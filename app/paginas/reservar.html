@@ -2,120 +2,115 @@
 <html lang="es">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nueva Reserva - Sistema de Gestión</title>
-    
+
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script src="../js/tailwind.js"></script>
 
+    <script type="module" src="../js/frontend.js"></script>
+    <script type="module" src="../js/reservar.js"> </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@100..900&display=swap" rel="stylesheet"/>
-    
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
-    
-</head>
-<body class="bg-background text-on-background min-h-screen flex flex-col font-body-lg">
 
-    <!-- Barra superior -->
+</head>
+
+
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-lg">
     <header class="fixed top-0 w-full z-50 bg-surface flex items-center px-md h-12 border-b border-surface-variant">
         <button class="text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-full p-2 -ml-2 flex items-center justify-center">
-            <span class="material-symbols-outlined">
-                arrow_back
-            </span>
+            <span class="material-symbols-outlined"> arrow_back </span>
         </button>
+
         <h1 class="ml-2 font-headline-md-mobile text-headline-md-mobile font-bold text-primary">
             Nueva Reserva
         </h1>
+
     </header>
-
-    <!-- Contenido -->
-
     <main class="flex-1 mt-12 px-md py-lg pb-32 flex flex-col gap-lg max-w-md mx-auto w-full">
 
-        <!-- Fecha -->
-
+        <!-- FECHA -->
         <section class="flex flex-col gap-sm">
-
-            <label class="font-label-lg text-label-lg text-on-surface-variant">
+            <label
+                class="font-label-lg text-label-lg text-on-surface-variant">
                 FECHA DE RESERVA
             </label>
 
             <div class="relative">
-
                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-
                     <span class="material-symbols-outlined text-outline">
                         calendar_today
                     </span>
-
                 </div>
-
                 <input
+                    id="fechaReserva"
                     type="date"
-                    value="2023-11-20"
+                    value=""
                     class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-3 pl-10 pr-4 text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all font-body-lg text-body-lg">
             </div>
         </section>
-        <!-- Curso -->
-        <section class="flex flex-col gap-sm">
-            <label class="font-label-lg text-label-lg text-on-surface-variant">CURSO DESTINO</label>
-            <div class="grid grid-cols-3 gap-3">
-                <button class="bg-surface-container-lowest border border-outline-variant text-on-surface-variant rounded-lg py-3 flex items-center justify-center font-title-lg text-title-lg transition-colors active:scale-95">1°</button>
-                <button class="bg-surface-container-lowest border border-outline-variant text-on-surface-variant rounded-lg py-3 flex items-center justify-center font-title-lg text-title-lg transition-colors active:scale-95">2°</button>
-<!-- Active State Example -->
-                <button class="bg-primary-container text-on-primary-container border border-transparent rounded-lg py-3 flex items-center justify-center font-title-lg text-title-lg transition-colors shadow-sm ring-2 ring-primary-container ring-offset-1 ring-offset-background">3°</button>
-                <button class="bg-surface-container-lowest border border-outline-variant text-on-surface-variant rounded-lg py-3 flex items-center justify-center font-title-lg text-title-lg transition-colors active:scale-95">4°</button>
-                <button class="bg-surface-container-lowest border border-outline-variant text-on-surface-variant rounded-lg py-3 flex items-center justify-center font-title-lg text-title-lg transition-colors active:scale-95">5°</button>
-                <button class="bg-surface-container-lowest border border-outline-variant text-on-surface-variant rounded-lg py-3 flex items-center justify-center font-title-lg text-title-lg transition-colors active:scale-95">6°</button>
-</div>
-</section>
 
-        <!-- Horarios -->
-
+        <!-- HORARIOS -->
         <section class="grid grid-cols-2 gap-md">
+            <!-- Hora inicio -->
             <div class="flex flex-col gap-sm">
                 <label class="font-label-lg text-label-lg text-on-surface-variant">
                     HORA INICIO
                 </label>
                 <div class="relative">
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+
                         <span class="material-symbols-outlined text-outline">
                             schedule
                         </span>
+
                     </div>
                     <input
+                        id="horaInicio"
                         type="time"
                         value="08:00"
                         class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-3 pl-10 pr-3">
+
                 </div>
             </div>
+            <!-- Hora fin -->
             <div class="flex flex-col gap-sm">
-
                 <label class="font-label-lg text-label-lg text-on-surface-variant">
                     HORA FIN
                 </label>
                 <div class="relative">
-
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-
                         <span class="material-symbols-outlined text-outline">
                             schedule
                         </span>
                     </div>
                     <input
+                        id="horaFin"
                         type="time"
                         value="09:30"
                         class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg py-3 pl-10 pr-3">
                 </div>
             </div>
         </section>
-      
-                <!-- Cantidad de notebooks -->
+        <!-- CURSOS -->
+        <section>
+            <h3>
+                Cursos
+            </h3>
+            <div
+                id="cursosContainer"
+                class="grid-cursos">
+            </div>
+
+        </section>
+
+        <!-- NOTEBOOKS -->
         <section class="flex flex-col gap-sm mt-2">
             <div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-md flex items-center justify-between shadow-sm">
                 <div class="flex items-center gap-3">
@@ -129,20 +124,39 @@
                             Notebooks
                         </h3>
                         <p class="font-label-lg text-label-lg text-on-surface-variant">
-                            Disponibles: 24
+                            Disponibles:
+                            <span
+                                id="notebooks-disponibles">
+                                -
+                            </span>
                         </p>
                     </div>
                 </div>
                 <div class="flex items-center gap-4">
-                    <button class="w-10 h-10 rounded-full bg-surface-container-high text-on-surface hover:bg-surface-variant flex items-center justify-center">
+
+                    <!-- Restar -->
+                    <button
+                        id="btn-restar"
+                        type="button"
+                        class="w-10 h-10 rounded-full bg-surface-container-high text-on-surface hover:bg-surface-variant flex items-center justify-center">
                         <span class="material-symbols-outlined">
                             remove
                         </span>
                     </button>
-                    <span class="font-display-lg text-display-lg text-primary w-8 text-center">
-                        15
+
+                    <!-- Cantidad -->
+                    <span
+                        id="cantidad-notebooks"
+                        class="font-display-lg text-display-lg text-primary w-8 text-center">
+                        1
                     </span>
-                    <button class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container hover:opacity-90 flex items-center justify-center shadow-sm">
+
+                    <!-- Sumar -->
+                    <button
+                        id="btn-sumar"
+                        type="button"
+                        class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container hover:opacity-90 flex items-center justify-center shadow-sm">
+
                         <span class="material-symbols-outlined">
                             add
                         </span>
@@ -150,14 +164,143 @@
                 </div>
             </div>
         </section>
+
+        <!-- PROFESOR -->
+        <section class="flex flex-col gap-sm">
+            <label
+                for="profesorSelect">
+                Seleccione el Profesor:
+            </label>
+
+            <select
+                id="profesorSelect"
+                required>
+                <option value="">
+                    Cargando profesores...
+                </option>
+            </select>
+        </section>
+
+        <!-- CONFIRMACIÓN -->
+
+        <section
+            id="confirmacionSection"
+            class="hidden flex flex-col items-center gap-xl pt-8">
+            <!-- Icono -->
+            <div
+                class="bg-tertiary-fixed w-24 h-24 rounded-full flex items-center justify-center shadow-sm">
+                <span
+                    class="material-symbols-outlined text-[48px] text-tertiary">
+                    check_circle
+                </span>
+            </div>
+
+            <!-- Título -->
+            <div class="text-center">
+
+                <h2 class="font-display-lg text-display-lg text-on-surface">
+                    ¡Reserva Confirmada!
+                </h2>
+                <p class="font-body-md text-body-md text-on-surface-variant mt-sm">
+                    Tu equipo está listo para ser retirado.
+                </p>
+
+            </div>
+
+            <!-- RESUMEN -->
+            <div class="w-full bg-surface-container-lowest rounded-xl shadow-sm p-md flex flex-col gap-sm">
+                <h3 class="font-title-lg text-title-lg text-on-surface mb-xs border-b border-outline-variant pb-xs">
+                    Resumen
+                </h3>
+                <div class="flex justify-between py-xs">
+                    <span class="font-label-lg text-on-surface-variant">
+                        Fecha
+                    </span>
+                    <span
+                        id="confirmacionFecha"
+                        class="font-body-md font-semibold">
+                    </span>
+                </div>
+
+                <div class="flex justify-between py-xs">
+                    <span class="font-label-lg text-on-surface-variant">
+                        Curso
+                    </span>
+
+                    <span
+                        id="confirmacionCurso"
+                        class="font-body-md font-semibold">
+                    </span>
+
+                </div>
+
+                <div class="flex justify-between py-xs">
+
+                    <span class="font-label-lg text-on-surface-variant">
+                        Horario
+                    </span>
+                    <span
+                        id="confirmacionHorario"
+                        class="font-body-md font-semibold">
+                    </span>
+                </div>
+
+                <div class="flex justify-between py-xs">
+                    <span class="font-label-lg text-on-surface-variant">
+                        Cantidad
+                    </span>
+
+                    <span id="confirmacionCantidad" class="font-body-md font-semibold">
+                    </span>
+                </div>
+            </div>
+
+            <!-- CAJAS ASIGNADAS -->
+            <div class="w-full bg-primary-container rounded-xl shadow-md p-md flex flex-col gap-sm relative overflow-hidden">
+                <div class="absolute -right-4 -top-4 opacity-10">
+                    <span class="material-symbols-outlined text-[100px] text-on-primary-container">
+                        inventory_2
+                    </span>
+                </div>
+
+                <h3 class="font-title-lg text-title-lg text-on-primary-container relative z-10">
+                    Cajas Asignadas
+                </h3>
+
+                <ul id="confirmacionCajas" class="space-y-sm relative z-10">
+                </ul>
+            </div>
+
+            <!-- AVISO -->
+            <div class="w-full bg-error-container rounded-lg p-sm flex items-start gap-sm">
+                <span class="material-symbols-outlined text-on-error-container mt-1">
+                    warning
+                </span>
+
+                <p class="font-body-md text-on-error-container">
+                    <strong>
+                        Importante:
+                    </strong>
+                    Recordá devolver los equipos a tiempo. Existe una tolerancia de 15 minutos antes de aplicar penalizaciones.
+                </p>
+            </div>
+
+            <!-- VOLVER -->
+            <button id="btn-volver-inicio" type="button" class="w-full h-12 bg-primary text-on-primary rounded-full flex items-center justify-center gap-sm font-label-lg shadow-sm mt-md">
+                <span
+                    class="material-symbols-outlined">
+                    home
+                </span>
+                Volver al inicio
+            </button>
+        </section>
     </main>
-    <!-- Botón inferior -->
-    <div class="fixed bottom-0 left-0 w-full bg-surface border-t border-surface-variant p-md z-40">
 
-        <div class="max-w-md mx-auto w-full">
-
-            <button class="w-full bg-primary text-on-primary rounded-full py-4 font-label-lg uppercase tracking-widest shadow-md flex justify-center items-center gap-2">
-                Continuar
+    <!-- BOTÓN INFERIOR -->
+    <div id="barraContinuar" class="fixed bottom-0 left-0 w-full bg-surface border-t border-surface-variant p-md z-40">
+        <div  class="max-w-md mx-auto w-full">
+            <button id="btn-continuar" type="button" class="w-full bg-primary text-on-primary rounded-full py-4 font-label-lg uppercase tracking-widest shadow-md flex justify-center items-center gap-2">
+                Confirmar reserva
                 <span class="material-symbols-outlined">
                     arrow_forward
                 </span>

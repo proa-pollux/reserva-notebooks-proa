@@ -87,6 +87,23 @@ button:disabled {
     opacity: .6;
 }
 
+#cursosContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    width: 100%;
+}
+
+.curso-option {
+    width: 100%;
+}
+
+.curso-btn {
+    width: 100%;
+    min-height: 50px;
+    box-sizing: border-box;
+}
+
 /* ==========================
    Formularios
 ========================== */
@@ -111,6 +128,14 @@ input,
 select,
 textarea {
     transition: .2s ease;
+}
+
+/* ==========================
+   Confirmación de reserva
+========================== */
+
+#confirmacionSection:not(.hidden) {
+    animation: fade-in-up 0.5s ease-out;
 }
 
 /* ==========================
