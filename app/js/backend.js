@@ -1,49 +1,398 @@
-import { supabase } from './db.js'
+import { supabase } from './db.js';
 
+// ==========================
+// OBTENER NOTEBOOKS
+// ==========================
 export async function getNotebooks() {
+
     const { data, error } = await supabase
         .from('notebooks')
-        .select('numero_inventario, id_caja, estado')
-
+        .select('id, numero_inventario, id_caja, estado');
     if (error) {
-        console.error('Error al obtener notebooks:', error.message)
-        return []
+        console.error(
+            'Error al obtener notebooks:',
+            error.message
+        );
+        return [];
     }
-    return data
+    return data;
 }
 
+
+// ==========================
+// OBTENER CAJAS
+// ==========================
 export async function getCajas() {
     const { data, error } = await supabase
         .from('cajas')
         .select('id, nombre, capacidad')
-
+        .order('id');
     if (error) {
-        console.error('Error al obtener cajas:', error.message)
-        return []
+        console.error(
+            'Error al obtener cajas:',
+            error.message
+        );
+        return [];
     }
-    return data
+    return data;
 }
+
+
+// ==========================
+// OBTENER CURSOS
+// ==========================
 
 export async function getCursos() {
+
     const { data, error } = await supabase
         .from('cursos')
-        .select('id, nombre,')
+        .select('id, nombre');
 
     if (error) {
-        console.error('Error al obtener cursos:', error.message)
-        return []
+        console.error(
+            'Error al obtener cursos:',
+            error.message
+        );
+
+        return [];
     }
-    return data
+
+    return data;
 }
 
+
+// ==========================
+// OBTENER PROFESORES
+// ==========================
+
 export async function getProfesores() {
+
     const { data, error } = await supabase
         .from('profesores')
         .select('id, nombre, apellido, activo')
+        .eq('activo', true);
 
     if (error) {
-        console.error('Error al obtener profesores:', error.message)
-        return []
+        console.error(
+            'Error al obtener profesores:',
+            error.message
+        );
+        return [];
     }
-    return data
+    return data;
+}
+
+// ==========================
+// OBTENER NOTEBOOKS DISPONIBLES SEGÚN FECHA Y HORARIO
+// ==========================
+export async function getNotebooksDisponibles(
+    fecha,
+    horaInicio,
+    horaFin
+) {
+
+    // Buscar reservas que se superponen con el horario seleccionado.
+    const { data: reservas, error: errorReservas } = await supabase
+        .from('reservas')
+        .select('id')
+        .eq('fecha', fecha)
+        .eq('estado', 'RESERVADA')
+        .lt('hora_inicio', horaFin)
+        .gt('hora_fin', horaInicio);
+
+    if (errorReservas) {
+        console.error(
+            'Error buscando reservas:',
+            errorReservas.message
+        );
+        return [];
+    }
+
+    // Obtener los IDs de las reservas.
+    const idsReservas = reservas.map( reserva => reserva.id );
+    let idsOcupadas = [];
+
+    // Buscar las notebooks de esas reservas.
+    if (idsReservas.length > 0) {
+
+        const { data: notebooksReservadas, error } = await supabase
+            .from('reserva_notebooks')
+            .select('id_notebook')
+            .in('id_reserva', idsReservas);
+
+        if (error) {
+            console.error(
+                'Error buscando notebooks reservadas:',
+                error.message
+            );
+            return [];
+        }
+        idsOcupadas = notebooksReservadas.map(
+            notebook => notebook.id_notebook
+        );
+    }
+
+    // Buscar notebooks disponibles.
+    let query = supabase
+        .from('notebooks')
+        .select(
+            'id, numero_inventario, id_caja, estado'
+        )
+        .eq('estado', 'DISPONIBLE')
+        .order('numero_inventario');
+
+    // Excluir las que ya están reservadas en ese horario.
+    if (idsOcupadas.length > 0) {
+        query = query.not(
+            'id',
+            'in',
+            `(${idsOcupadas.join(',')})`
+        );
+    }
+
+    const { data: disponibles, error: errorDisponibles } = await query;
+    if (errorDisponibles) {
+        console.error(
+            'Error buscando notebooks disponibles:',
+            errorDisponibles.message
+        );
+        return [];
+    }
+    return disponibles;
+}
+
+// ==========================
+// ELEGIR NOTEBOOKS
+// ==========================
+export async function elegirNotebooks(
+    fecha,
+    horaInicio,
+    horaFin,
+    cantidadSolicitada
+) {
+
+    const notebooksDisponibles = await getNotebooksDisponibles(
+        fecha,
+        horaInicio,
+        horaFin
+    );
+
+    // Verificar que haya suficientes.
+    if (
+        notebooksDisponibles.length <
+        cantidadSolicitada
+    ) {
+        throw new Error(
+            `Solo hay ${notebooksDisponibles.length} notebooks disponibles.`
+        );
+    }
+
+    // Obtener las cajas existentes.
+    const cajas = await getCajas();
+    // Relacionar las notebooks disponibles con sus cajas existentes.
+    const cajasDisponibles = [];
+
+    for (const caja of cajas) {
+
+        const notebooksDeCaja =
+            notebooksDisponibles.filter(
+                notebook =>
+                    notebook.id_caja === caja.id
+            );
+
+        cajasDisponibles.push({
+            caja: caja,
+            notebooks: notebooksDeCaja,
+            cantidadDisponibles:
+                notebooksDeCaja.length
+        });
+    }
+
+    // Ordenar cajas de mayor a menor cantidad de notebooks disponibles.
+
+    cajasDisponibles.sort(
+        (a, b) =>
+            b.cantidadDisponibles -
+            a.cantidadDisponibles
+    );
+
+
+    let cantidadRestante = cantidadSolicitada;
+    const notebooksSeleccionadas = [];
+    const cajasSeleccionadas = [];
+
+    // =====================================
+    // BUSCAR CAJAS COMPLETAS
+    // =====================================
+    for (const item of cajasDisponibles) {
+        if (cantidadRestante === 0) {
+            break;
+        }
+
+        // Si la caja está completa, utilizarla primero.
+        if (
+            item.cantidadDisponibles ===
+            item.caja.capacidad &&
+            item.cantidadDisponibles <=
+            cantidadRestante
+        ) {
+
+            notebooksSeleccionadas.push(
+                ...item.notebooks
+            );
+            cajasSeleccionadas.push({
+                caja: item.caja,
+                notebooks: item.notebooks
+            });
+
+            cantidadRestante -=
+                item.notebooks.length;
+        }
+    }
+
+    // =====================================
+    // COMPLETAR CON CAJA INCOMPLETA
+    // =====================================
+    if (cantidadRestante > 0) {
+        const cajasIncompletas = cajasDisponibles
+                .filter(item => {
+                    const yaSeleccionada = cajasSeleccionadas.some(
+                            seleccionada =>
+                                seleccionada.caja.id ===
+                                item.caja.id
+                        );
+                    return (
+                        !yaSeleccionada &&
+                        item.cantidadDisponibles >=
+                        cantidadRestante
+                    );
+                })
+
+                // Elegir la caja que tenga la cantidad más cercana a lo que necesitamos.
+                .sort(
+                    (a, b) =>
+                        a.cantidadDisponibles -
+                        b.cantidadDisponibles
+                );
+
+        if (cajasIncompletas.length > 0) {
+            const mejorCaja = cajasIncompletas[0];
+            const notebooksAUsar = mejorCaja.notebooks.slice(
+                    0,
+                    cantidadRestante
+                );
+            notebooksSeleccionadas.push(
+                ...notebooksAUsar
+            );
+
+            cajasSeleccionadas.push({
+                caja: mejorCaja.caja,
+                notebooks: notebooksAUsar
+            });
+            cantidadRestante = 0;
+        }
+    }
+
+    // =====================================
+    // VERIFICAR QUE SE HAYA COMPLETADO
+    // =====================================
+    if (cantidadRestante > 0) {
+        throw new Error(
+            'No se pudieron encontrar las cajas necesarias para completar la reserva.'
+        );
+    }
+    return {
+        notebooks: notebooksSeleccionadas,
+        cajas: cajasSeleccionadas
+    };
+}
+
+// ==========================
+// REGISTRAR RESERVA
+// ==========================
+
+export async function registrarReserva({
+    fecha,
+    horaInicio,
+    horaFin,
+    idProfesor,
+    idCurso,
+    cantidad
+}) {
+
+    // Primero elegir las notebooks y las cajas.
+
+    const seleccion = await elegirNotebooks(
+            fecha,
+            horaInicio,
+            horaFin,
+            cantidad
+        );
+
+
+    // =====================================
+    // INSERT EN RESERVAS
+    // =====================================
+
+    const { data: reserva, error: errorReserva } = await supabase
+        .from('reservas')
+        .insert({
+            fecha: fecha,
+            hora_inicio: horaInicio,
+            hora_fin: horaFin,
+            estado: 'RESERVADA',
+            id_profesor: idProfesor,
+            id_curso: idCurso,
+            cantidad_notebooks: cantidad
+        })
+        .select('id')
+        .single();
+
+    if (errorReserva) {
+
+        console.error(
+            'Error creando reserva:',
+            errorReserva.message
+        );
+
+        throw new Error(
+            'No se pudo crear la reserva.'
+        );
+    }
+
+    // =====================================
+    // PREPARAR RESERVAS_NOTEBOOKS
+    // =====================================
+    const registrosNotebooks = seleccion.notebooks.map(
+            notebook => ({
+                id_reserva: reserva.id,
+                id_notebook: notebook.id
+            })
+        );
+
+    // =====================================
+    // INSERT EN RESERVAS_NOTEBOOKS
+    // =====================================
+    const { error: errorNotebooks } = await supabase
+        .from('reserva_notebooks')
+        .insert(registrosNotebooks);
+    if (errorNotebooks) {
+
+        console.error(
+            'Error guardando notebooks:',
+            errorNotebooks.message
+        );
+        throw new Error(
+            'No se pudieron guardar las notebooks de la reserva.'
+        );
+    }
+
+    // =====================================
+    // DEVOLVER RESULTADO
+    // =====================================
+    return {
+        idReserva:reserva.id,
+        notebooks:seleccion.notebooks,
+        cajas:seleccion.cajas
+    };
 }
