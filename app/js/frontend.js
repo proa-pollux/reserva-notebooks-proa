@@ -1,70 +1,126 @@
-import { getProfesores } from './backend.js';
-import { getCursos } from './backend.js'; 
+import { getProfesores, getCursos } from './backend.js';
 
-// Seleccionamos el elemento del HTML por su ID
-const profesorSelect = document.getElementById('profesorSelect'); 
+const profesorSelect = document.getElementById( 'profesorSelect');
 
+// ==========================
+// CARGAR PROFESORES
+// ==========================
 async function cargarProfesores() {
-    // Llamamos a la función de backend que conecta con Supabase
-    const profesores = await getProfesores(); 
+    try {
+        const profesores = await getProfesores();
+        profesorSelect.innerHTML = '<option value="">-- Seleccione un profesor --</option>';
+        profesores.forEach(profe => {
+            const opcion = document.createElement('option');
 
-    profesorSelect.innerHTML = '<option value="">-- Seleccione un profesor --</option>'; 
+            opcion.value = profe.id;
+            opcion.innerText = `${profe.nombre} ${profe.apellido}`;
+            profesorSelect.appendChild( opcion);
+        });
 
-    // Recorremos el arreglo de profesores
-    profesores.forEach(profe => { // Iteración/Array 
-        const opcion = document.createElement('option'); // Creamos un nuevo nodo/elemento 
-        opcion.value = profe.id; // El ID (UUID) que usará Supabase como clave foránea 
-        opcion.innerText = `${profe.nombre} ${profe.apellido}`; 
-        // Lo inyectamos en el documento para hacerlo visible
-        profesorSelect.appendChild(opcion); 
-    });
+    } catch (error) {
+
+        console.error(
+            'Error cargando profesores:',
+            error
+        );
+    }
 }
 
+// ==========================
+// CARGAR CURSOS
+// ==========================
 async function cargarCursos() {
+
     const cursosContainer = document.getElementById('cursosContainer');
-    const cursos = await getCursos(); 
+    try {
+        const cursos = await getCursos();
 
-    cursosContainer.innerHTML = ''; 
+        cursosContainer.innerHTML = '';
+        cursos.forEach(curso => {
+            const wrapper = document.createElement('div');
+            wrapper.classList.add('curso-option');
 
-    // Usamos 'curso' en singular para referirnos a un solo elemento
-    cursos.forEach(curso => { 
-        const wrapper = document.createElement('div');
-        wrapper.classList.add('curso-option'); 
+            wrapper.innerHTML = `
+                <button
+                    type="button"
+                    data-curso="${curso.id}"
+                    data-nombre="${curso.nombre}"
+                    class="curso-btn bg-surface-container-lowest border border-outline-variant text-on-surface-variant rounded-lg py-3 flex items-center justify-center cursor-pointer">
+                    ${curso.nombre}º
+                </button>
+            `;
+            cursosContainer.appendChild(wrapper);
+        });
 
-        wrapper.innerHTML = `
-            <input type="button" 
-                   name="curso_seleccionado" 
-                   id="curso-${curso.id}" 
-                   class="hidden-radio">
-            <label for="curso-${curso.id}" 
-                   class="btn-estilizado curso-btn bg-surface-container-lowest border border-outline-variant text-on-surface-variant rounded-lg py-3 flex items-center justify-center font-title-lg text-title-lg transition-colors active:scale-95 cursor-pointer">
-                ${curso.nombre}º
-            </label>
-        `;
+        // ==========================
+        // SELECCIÓN DE CURSO
+        // ==========================
+        const botonesCurso = document.querySelectorAll('.curso-btn');
 
-        // SELECCIÓN DINÁMICA
-        const label = wrapper.querySelector('label');
-        
-        label.onclick = () => {
-            document.querySelectorAll('.curso-btn').forEach(l => {
-                l.classList.remove('bg-primary', 'text-on-primary', 'activa'); // Clases de ejemplo para resaltar
-                l.classList.add('bg-surface-container-lowest', 'text-on-surface-variant'); // Clases originales
-            });
+        botonesCurso.forEach(boton => {
+            boton.addEventListener(
+                'click',
+                () => {
 
-            label.classList.remove('bg-surface-container-lowest', 'text-on-surface-variant');
-            label.classList.add('bg-primary', 'text-on-primary', 'activa');
-            
-            console.log("Curso seleccionado ID:", curso.id);
-        };
+                    // Quitar selección anterior.
+                    botonesCurso.forEach(
+                        btn => {
+                            btn.classList.remove(
+                                'bg-primary-container',
+                                'text-on-primary-container',
+                                'border-transparent',
+                                'shadow-sm',
+                                'ring-2',
+                                'ring-primary-container',
+                                'ring-offset-1',
+                                'ring-offset-background'
+                            );
 
-        cursosContainer.appendChild(wrapper);
-    });
+                            btn.classList.add(
+                                'bg-surface-container-lowest',
+                                'border-outline-variant',
+                                'text-on-surface-variant'
+                            );
+                        }
+                    );
+
+                    // Activar seleccionado.
+                    boton.classList.remove(
+                        'bg-surface-container-lowest',
+                        'border-outline-variant',
+                        'text-on-surface-variant'
+                    );
+
+                    boton.classList.add(
+                        'bg-primary-container',
+                        'text-on-primary-container',
+                        'border-transparent',
+                        'shadow-sm',
+                        'ring-2',
+                        'ring-primary-container',
+                        'ring-offset-1',
+                        'ring-offset-background'
+                    );
+
+                    console.log(
+                        'Curso seleccionado:',
+                        boton.dataset.curso
+                    );
+                }
+            );
+        });
+
+    } catch (error) {
+        console.error(
+            'Error cargando cursos:',
+            error
+        );
+    }
 }
 
-// Asegurarnos de que se ejecute al cargar la página
-window.addEventListener('load', () => {
-    cargarCursos();
-});
+// ==========================
+// INICIAR
+// ==========================
 
-// Se ejecuta al cargar la ventana para llenar el select de profesores
-window.onload = cargarProfesores; // Concepto: Eventos de Ventana
+cargarProfesores();
+cargarCursos();
