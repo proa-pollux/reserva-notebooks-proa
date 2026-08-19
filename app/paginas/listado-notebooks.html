@@ -119,29 +119,42 @@
 
         <!-- HEADER DE SECCIÓN + BUSCADOR -->
         <div class="mb-lg flex flex-col md:flex-row md:items-end justify-between gap-md">
+        
             <div>
                 <h2 class="font-display-lg text-display-lg text-on-surface">
                     Inventario de Equipos
                 </h2>
+        
                 <p class="font-body-md text-body-md text-on-surface-variant">
                     Control de estado y disponibilidad de notebooks por caja.
                 </p>
             </div>
-
-            <!-- BUSCADOR -->
-            <div class="relative w-full md:w-72">
-                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">
-                    search
-                </span>
-
-                <input
-                    id="buscador"
-                    type="text"
-                    placeholder="Buscar equipo o caja..."
-                    autocomplete="off"
-                    class="w-full pl-10 pr-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-xl font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary"
-                >
+        
+            <div class="flex flex-col sm:flex-row gap-sm w-full md:w-auto">
+        
+                <!-- Buscador -->
+                <div class="relative w-full md:w-72">
+                    <span
+                        class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">
+                        search
+                    </span>
+        
+                    <input id="buscador" type="text" placeholder="Buscar equipo o caja..."
+                        class="w-full pl-10 pr-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-xl font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary">
+                </div>
+        
+                <!-- Botón agregar notebook -->
+                <a href="nueva-notebook.html"
+                    class="flex items-center justify-center gap-2 px-4 py-2 bg-primary text-on-primary rounded-xl font-label-lg hover:opacity-90 transition-opacity whitespace-nowrap">
+                    <span class="material-symbols-outlined">
+                        add
+                    </span>
+        
+                    Agregar notebook
+                </a>
+        
             </div>
+        
         </div>
 
         <!-- TARJETAS DE RESUMEN -->
