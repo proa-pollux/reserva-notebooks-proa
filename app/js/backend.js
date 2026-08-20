@@ -25,9 +25,9 @@ export async function getNotebooks() {
         );
         return [];
     }
+
     return data;
 }
-
 
 
 // ============================================================
@@ -57,6 +57,7 @@ export async function getCajas() {
 
     return data;
 }
+
 // ============================================================
 // OBTENER CURSOS
 // ============================================================
@@ -100,6 +101,7 @@ export async function getProfesores() {
 
     return data;
 }
+
 
 // ============================================================
 // ACTUALIZAR ESTADO DE NOTEBOOK
