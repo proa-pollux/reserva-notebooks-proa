@@ -6,9 +6,19 @@ import { supabase } from './db.js';
 
 export async function getNotebooks() {
 
-    const { data, error } = await supabase.from('notebooks').select('id, numero_inventario, id_caja, estado');
+    const { data, error } = await supabase
+        .from('notebooks')
+        .select(`
+            id,
+            numero_inventario,
+            id_caja,
+            estado,
+            observaciones
+        `)
+        .order('numero_inventario');
 
     if (error) {
+
         console.error(
             'Error al obtener notebooks:',
             error.message
@@ -28,20 +38,25 @@ export async function getCajas() {
 
     const { data, error } = await supabase
         .from('cajas')
-        .select('id, nombre, capacidad')
+        .select(`
+            id,
+            nombre,
+            capacidad
+        `)
         .order('id');
 
     if (error) {
+
         console.error(
             'Error al obtener cajas:',
             error.message
         );
+
         return [];
     }
 
     return data;
 }
-
 
 // ============================================================
 // OBTENER CURSOS
@@ -87,6 +102,65 @@ export async function getProfesores() {
     return data;
 }
 
+
+// ============================================================
+// ACTUALIZAR ESTADO DE NOTEBOOK
+// ============================================================
+
+export async function actualizarEstadoNotebook(
+    idNotebook,
+    estado
+) {
+
+    const { error } = await supabase
+        .from('notebooks')
+        .update({
+            estado: estado
+        })
+        .eq('id', idNotebook);
+
+    if (error) {
+
+        console.error(
+            'Error actualizando estado de notebook:',
+            error.message
+        );
+
+        return false;
+    }
+
+    return true;
+}
+
+
+// ============================================================
+// ACTUALIZAR OBSERVACIÓN DE NOTEBOOK
+// ============================================================
+
+export async function actualizarObservacionNotebook(
+    idNotebook,
+    observaciones
+) {
+
+    const { error } = await supabase
+        .from('notebooks')
+        .update({
+            observaciones: observaciones
+        })
+        .eq('id', idNotebook);
+
+    if (error) {
+
+        console.error(
+            'Error actualizando observación:',
+            error.message
+        );
+
+        return false;
+    }
+
+    return true;
+}
 
 // ============================================================
 // OBTENER NOTEBOOKS DISPONIBLES

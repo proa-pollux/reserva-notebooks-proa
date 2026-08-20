@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Inventario de Equipos</title>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="../js/tailwind.js"></script>
+
+    <script type="module" src="../js/listado-notebooks.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="antialiased min-h-screen font-body-lg text-body-lg bg-background text-on-background">
+    <!-- HEADER MÓVIL -->
+    <header class="fixed top-0 w-full bg-surface flex items-center px-md h-12 z-50">
+
+        <button class="mr-sm p-sm text-primary hover:bg-surface-container-low rounded-full flex items-center justify-center md:hidden">
+            <span class="material-symbols-outlined">
+                menu
+            </span>
+        </button>
+        <div class="flex-1">
+            <h1 class="font-headline-md-mobile text-headline-md-mobile font-bold text-primary">
+                Inventario de Equipos
+            </h1>
+        </div>
+    </header>
+
+    <!-- MENÚ LATERAL -->
+
+    <nav class="hidden md:flex flex-col py-lg fixed inset-y-0 left-0 z-[60] h-full w-80 rounded-r-xl bg-surface-container-low shadow-sm">
+        <div class="px-lg mb-xl">
+            <h2 class="font-display-lg text-display-lg text-primary">
+                Gestión Técnica
+            </h2>
+        </div>
+
+        <ul class="flex-1 space-y-2">
+            <li>
+                <a href="index.html" class="text-on-surface-variant mx-2 px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
+                    <span class="material-symbols-outlined">
+                        home
+                    </span>
+                    <span>
+                        Inicio
+                    </span>
+                </a>
+            </li>
+
+            <li>
+                <a href="nueva-reserva.html" class="text-on-surface-variant mx-2 px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
+                    <span class="material-symbols-outlined">
+                        laptop_mac
+                    </span>
+                    <span>
+                        Reservar notebooks
+                    </span>
+                </a>
+            </li>
+
+            <li>
+                <a href="inventario.html" class="bg-secondary-container text-on-secondary-container rounded-full mx-2 px-4 py-3 flex items-center gap-md">
+                    <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">
+                        inventory_2
+                    </span>
+                    <span>
+                        Inventario de Equipos
+                    </span>
+                </a>
+            </li>
+
+            <li>
+                <a href="ver-reservas.html" class="text-on-surface-variant mx-2 px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
+                    <span class="material-symbols-outlined">
+                        event_note
+                    </span>
+                    <span>
+                        Ver reservas
+                    </span>
+                </a>
+            </li>
+
+            <li>
+                <a href="mis-reservas.html" class="text-on-surface-variant mx-2 px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
+                    <span class="material-symbols-outlined">
+                        history
+                    </span>
+                    <span>
+                        Mis reservas
+                    </span>
+                </a>
+            </li>
+
+            <li class="mt-auto">
+                <a href="login.html" class="text-on-surface-variant mx-2 px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
+                    <span class="material-symbols-outlined">
+                        logout
+                    </span>
+                    <span>
+                        Cerrar sesión
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="pt-16 pb-20 md:pb-lg px-container-padding md:ml-80 max-w-7xl mx-auto">
+
+        <!-- HEADER DE SECCIÓN + BUSCADOR -->
+        <div class="mb-lg flex flex-col md:flex-row md:items-end justify-between gap-md">
+        
+            <div>
+                <h2 class="font-display-lg text-display-lg text-on-surface">
+                    Inventario de Equipos
+                </h2>
+        
+                <p class="font-body-md text-body-md text-on-surface-variant">
+                    Control de estado y disponibilidad de notebooks por caja.
+                </p>
+            </div>
+        
+            <div class="flex flex-col sm:flex-row gap-sm w-full md:w-auto">
+        
+                <!-- Buscador -->
+                <div class="relative w-full md:w-72">
+                    <span
+                        class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">
+                        search
+                    </span>
+        
+                    <input id="buscador" type="text" placeholder="Buscar equipo o caja..."
+                        class="w-full pl-10 pr-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-xl font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary">
+                </div>
+        
+                <!-- Botón agregar notebook -->
+                <a href="nueva-notebook.html"
+                    class="flex items-center justify-center gap-2 px-4 py-2 bg-primary text-on-primary rounded-xl font-label-lg hover:opacity-90 transition-opacity whitespace-nowrap">
+                    <span class="material-symbols-outlined">
+                        add
+                    </span>
+        
+                    Agregar notebook
+                </a>
+        
+            </div>
+        
+        </div>
+
+        <!-- TARJETAS DE RESUMEN -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-md mb-lg">
+
+            <!-- TOTAL -->
+            <div class="bg-surface-container-lowest rounded-xl p-md shadow-sm border border-outline-variant/30 flex items-center justify-between">
+                <div>
+                    <p class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">
+                        Total Equipos
+                    </p>
+
+                    <p id="totalEquipos" class="font-display-lg text-display-lg text-primary mt-1">
+                        0
+                    </p>
+                </div>
+                <div class="h-12 w-12 rounded-full bg-primary-container/20 flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined">
+                        devices
+                    </span>
+                </div>
+            </div>
+
+
+            <!-- DISPONIBLES -->
+            <div class="bg-surface-container-lowest rounded-xl p-md shadow-sm border border-outline-variant/30 flex items-center justify-between" >
+                <div>
+                    <p class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">
+                        Disponibles
+                    </p>
+                    <p id="equiposDisponibles" class="font-display-lg text-display-lg text-[#15803d] mt-1">
+                        0
+                    </p>
+                </div>
+
+                <div class="h-12 w-12 rounded-full bg-[#15803d]/10 flex items-center justify-center text-[#15803d]">
+                    <span class="material-symbols-outlined">
+                        check_circle
+                    </span>
+                </div>
+            </div>
+
+            <!-- REPARACIÓN / BAJA -->
+            <div class="bg-surface-container-lowest rounded-xl p-md shadow-sm border border-outline-variant/30 flex items-center justify-between">
+                <div>
+                    <p class="font-label-lg text-label-lg text-on-surface-variant uppercase tracking-wider">
+                        En Reparación / Baja
+                    </p>
+                    <p id="equiposNoDisponibles" class="font-display-lg text-display-lg text-error mt-1">
+                        0
+                    </p>
+                </div>
+                <div class="h-12 w-12 rounded-full bg-error-container/50 flex items-center justify-center text-error">
+                    <span class="material-symbols-outlined">
+                        build
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTENEDOR DE CAJAS -->
+        <div id="cajasContainer" class="space-y-4">
+            <div id="mensajeInventario" class="text-center text-on-surface-variant py-8">
+                Cargando inventario...
+            </div>
+        </div>
+    </main>
+
+    <!-- NAVEGACIÓN INFERIOR MÓVIL -->
+    <nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 py-2 bg-surface border-t border-outline-variant z-50">
+
+        <a href="index.html" class="flex flex-col items-center">
+            <span class="material-symbols-outlined">
+                home
+            </span>
+            <span>
+                Inicio
+            </span>
+        </a>
+
+        <a href="nueva-reserva.html" class="flex flex-col items-center">
+            <span class="material-symbols-outlined">
+                add_circle
+            </span>
+            <span>
+                Reserva
+            </span>
+        </a>
+        <a href="inventario.html" class="flex flex-col items-center bg-primary-container text-on-primary-container rounded-2xl px-4 py-1">
+
+            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">
+                inventory_2
+            </span>
+            <span>
+                Inventario
+            </span>
+        </a>
+        <a href="mis-reservas.html" class="flex flex-col items-center">
+            <span class="material-symbols-outlined">
+                receipt_long
+            </span>
+            <span>
+                Mis reservas
+            </span>
+        </a>
+    </nav>
+</body>
+</html>
