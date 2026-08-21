@@ -1,4 +1,4 @@
-import { getNotebooksDisponibles, registrarReserva} from './backend.js';
+import { getNotebooksDisponibles, registrarReserva } from './backend.js';
 
 // ============================================================
 // ELEMENTOS

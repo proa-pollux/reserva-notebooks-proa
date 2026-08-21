@@ -11,6 +11,8 @@
     <script src="../js/tailwind.js"></script>
 
     <script type="module" src="../js/listado-notebooks.js"></script>
+    <script defer type="module" src="../js/login.js"></script>
+    <script defer type="module" src="../js/logout.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -101,14 +103,16 @@
             </li>
 
             <li class="mt-auto">
-                <a href="login.html" class="text-on-surface-variant mx-2 px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
+                <button
+                    type="button"
+                    data-logout
+                    class="w-full text-on-surface-variant mx-2 px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full"
+                >
                     <span class="material-symbols-outlined">
                         logout
                     </span>
-                    <span>
-                        Cerrar sesión
-                    </span>
-                </a>
+                    <span>Cerrar sesión</span>
+                </button>
             </li>
         </ul>
     </nav>
