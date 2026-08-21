@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Registrar Nueva Notebook - Gestión Escolar</title>
+
+    <!-- ==================== FUENTES ==================== -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet"
+    >
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <script src="../js/tailwind.js"></script>
+
+    <script
+        type="module"
+        src="../js/registrar-notebooks.js">
+    </script>
+
+
+</head>
+
+
+<body class="min-h-screen bg-background text-on-background antialiased selection:bg-primary-container selection:text-on-primary-container">
+
+
+    <!-- ================================================== -->
+    <!-- HEADER -->
+    <!-- ================================================== -->
+
+    <header class="fixed top-0 z-50 flex h-12 w-full items-center bg-surface px-md">
+
+        <a
+            href="listado-notebooks.html"
+            aria-label="Volver"
+            class="flex items-center justify-center rounded-full p-2 -ml-2 text-on-surface-variant transition-colors hover:bg-surface-container-low active:opacity-80"
+        >
+
+            <span class="material-symbols-outlined">
+                arrow_back
+            </span>
+
+        </a>
+
+
+        <h1 class="ml-2 truncate font-headline-md-mobile text-headline-md-mobile font-bold text-primary">
+            Registrar Nueva Notebook
+        </h1>
+
+    </header>
+
+
+
+    <!-- ================================================== -->
+    <!-- CONTENIDO PRINCIPAL -->
+    <!-- ================================================== -->
+
+    <main class="mx-auto w-full max-w-md px-md pb-xl pt-[64px]">
+
+
+        <!-- ================================================== -->
+        <!-- TARJETA DEL FORMULARIO -->
+        <!-- ================================================== -->
+
+        <div class="relative w-full overflow-hidden rounded-xl bg-surface-container-lowest p-container-padding shadow-[0_4px_16px_rgba(0,0,0,0.05)]">
+
+
+            <!-- Línea superior -->
+
+            <div class="absolute left-0 top-0 h-1 w-full bg-primary"></div>
+
+
+            <!-- Descripción -->
+
+            <p class="mb-lg mt-sm font-body-md text-body-md text-on-surface-variant">
+                Complete los datos para ingresar un nuevo equipo al sistema de inventario.
+            </p>
+
+
+
+            <!-- ================================================== -->
+            <!-- FORMULARIO -->
+            <!-- ================================================== -->
+
+            <form
+                id="formNuevaNotebook"
+                action="#"
+                method="POST"
+                class="flex flex-col gap-lg"
+            >
+
+
+                <!-- ================================================== -->
+                <!-- NÚMERO DE INVENTARIO -->
+                <!-- ================================================== -->
+
+                <div class="relative flex flex-col gap-xs">
+
+                    <label
+                        for="numeroInventario"
+                        class="font-label-lg text-label-lg text-on-surface"
+                    >
+                        Número de Inventario
+                    </label>
+
+
+                    <div class="relative">
+
+                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">
+                            qr_code_scanner
+                        </span>
+
+
+                        <input
+                            type="number"
+                            id="numeroInventario"
+                            name="numeroInventario"
+                            placeholder="Ej. 106"
+                            min="1"
+                            required
+                            class="h-12 w-full rounded-lg border border-outline-variant bg-surface pl-10 pr-4 font-body-lg text-body-lg text-on-surface outline-none transition-all placeholder:text-outline-variant focus:border-primary focus:ring-2 focus:ring-primary-container"
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ================================================== -->
+                <!-- CAJA ASIGNADA -->
+                <!-- ================================================== -->
+
+                <div class="flex flex-col gap-xs">
+
+                    <label
+                        for="cajaSelect"
+                        class="font-label-lg text-label-lg text-on-surface"
+                    >
+                        Caja asignada
+                    </label>
+
+
+                    <div class="relative">
+
+                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">
+                            inventory_2
+                        </span>
+
+
+                        <select
+                            id="cajaSelect"
+                            name="cajaSelect"
+                            required
+                            class="h-12 w-full cursor-pointer appearance-none rounded-lg border border-outline-variant bg-surface pl-10 pr-10 font-body-lg text-body-lg text-on-surface outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary-container"
+                        >
+
+                            <!-- Las cajas se cargarán desde Supabase -->
+
+                            <option
+                                value=""
+                                disabled
+                                selected
+                            >
+                                Seleccione una caja
+                            </option>
+
+                        </select>
+
+
+                        <span class="material-symbols-outlined pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-outline">
+                            expand_more </span>
+
+                    </div>
+
+                    <!-- Botón para crear una nueva caja -->
+                    <button
+                        type="button"
+                        id="btnNuevaCaja"
+                        class="mt-1 flex items-center gap-1 self-start font-label-lg text-label-lg text-primary transition-colors hover:text-surface-tint"
+                    >
+
+                        <span class="material-symbols-outlined text-[20px]">
+                            add
+                        </span>
+
+                        Crear nueva caja
+
+                    </button>
+
+                </div>
+
+
+
+                <!-- ================================================== -->
+                <!-- FORMULARIO PARA NUEVA CAJA -->
+                <!-- ================================================== -->
+
+                <div
+                    id="nuevaCajaContainer"
+                    class="hidden rounded-lg border border-outline-variant bg-surface-container-low p-4"
+                >
+
+                    <div class="flex flex-col gap-4">
+
+
+                        <!-- Nombre de la caja -->
+
+                        <div class="flex flex-col gap-xs">
+
+                            <label
+                                for="nombreNuevaCaja"
+                                class="font-label-lg text-label-lg text-on-surface"
+                            >
+                                Nombre de la caja
+                            </label>
+
+
+                            <input
+                                type="text"
+                                id="nombreNuevaCaja"
+                                name="nombreNuevaCaja"
+                                placeholder="Ej. 106-110"
+                                class="h-12 w-full rounded-lg border border-outline-variant bg-surface px-4 font-body-lg text-body-lg text-on-surface outline-none transition-all placeholder:text-outline-variant focus:border-primary focus:ring-2 focus:ring-primary-container"
+                            >
+
+                        </div>
+
+
+
+                        <!-- Capacidad -->
+
+                        <div class="flex flex-col gap-xs">
+
+                            <label
+                                for="capacidadNuevaCaja"
+                                class="font-label-lg text-label-lg text-on-surface"
+                            >
+                                Capacidad
+                            </label>
+
+
+                            <input
+                                type="number"
+                                id="capacidadNuevaCaja"
+                                name="capacidadNuevaCaja"
+                                value="5"
+                                min="1"
+                                class="h-12 w-full rounded-lg border border-outline-variant bg-surface px-4 font-body-lg text-body-lg text-on-surface outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary-container"
+                            >
+
+                        </div>
+
+
+
+                        <!-- Botones -->
+
+                        <div class="flex gap-2">
+
+                            <button
+                                type="button"
+                                id="btnCancelarCaja"
+                                class="h-11 flex-1 rounded-full border border-outline-variant font-label-lg text-label-lg text-on-surface transition-colors hover:bg-surface-container"
+                            >
+                                Cancelar
+                            </button>
+
+
+                            <button
+                                type="button"
+                                id="btnCrearCaja"
+                                class="h-11 flex-1 rounded-full bg-primary font-label-lg text-label-lg font-bold text-on-primary transition-transform active:scale-[0.98]"
+                            >
+                                Crear caja
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ================================================== -->
+                <!-- ESTADO -->
+                <!-- ================================================== -->
+
+                <div class="flex flex-col gap-xs">
+
+                    <label
+                        for="estadoSelect"
+                        class="font-label-lg text-label-lg text-on-surface"
+                    >
+                        Estado inicial
+                    </label>
+
+
+                    <div class="relative">
+
+                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">
+                            build_circle
+                        </span>
+
+
+                        <select
+                            id="estadoSelect"
+                            name="estadoSelect"
+                            required
+                            class="h-12 w-full cursor-pointer appearance-none rounded-lg border border-outline-variant bg-surface pl-10 pr-10 font-body-lg text-body-lg text-on-surface outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary-container"
+                        >
+
+                            <option
+                                value=""
+                                disabled
+                                selected
+                            >
+                                Seleccione estado inicial
+                            </option>
+
+
+                            <option value="DISPONIBLE">
+                                Disponible
+                            </option>
+
+
+                            <option value="REPARACION">
+                                En reparación
+                            </option>
+
+
+                            <option value="BAJA">
+                                Dada de baja
+                            </option>
+
+                        </select>
+
+
+                        <span class="material-symbols-outlined pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-outline">
+                            expand_more
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- ================================================== -->
+                <!-- BOTÓN GUARDAR NOTEBOOK -->
+                <!-- ================================================== -->
+
+                <button
+                    type="submit"
+                    id="btnGuardarNotebook"
+                    class="mt-sm flex h-12 w-full items-center justify-center gap-2 rounded-full bg-primary font-label-lg text-label-lg font-bold text-on-primary shadow-sm transition-transform hover:bg-surface-tint active:scale-[0.98]"
+                >
+
+                    <span class="material-symbols-outlined">
+                        save
+                    </span>
+
+                    Guardar Notebook
+
+                </button>
+
+
+            </form>
+
+        </div>
+
+
+
+        <!-- ================================================== -->
+        <!-- VOLVER AL LISTADO -->
+        <!-- ================================================== -->
+
+        <div class="mt-lg flex justify-center">
+
+            <a
+                href="listado-notebooks.html"
+                class="flex items-center gap-1 font-label-lg text-label-lg text-primary transition-opacity hover:text-surface-tint active:opacity-70"
+            >
+
+                <span class="material-symbols-outlined text-[18px]">
+                    list_alt
+                </span>
+
+                Volver al listado general
+
+            </a>
+
+        </div>
+
+    </main>
+
+
+</body>
+
+</html>

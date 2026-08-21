@@ -270,7 +270,6 @@ export async function getNotebooksDisponibles(
     return disponibles;
 }
 
-
 // ============================================================
 // ELEGIR NOTEBOOKS
 // ============================================================
@@ -438,6 +437,72 @@ export async function elegirNotebooks(
     };
 }
 
+// ==========================
+// CREAR NUEVA CAJA
+// ==========================
+
+export async function crearCaja(nombre, capacidad) {
+
+    const { data, error } = await supabase
+        .from('cajas')
+        .insert({
+            nombre: nombre,
+            capacidad: capacidad
+        })
+        .select('id, nombre, capacidad')
+        .single();
+
+    if (error) {
+
+        console.error(
+            'Error al crear la caja:',
+            error.message
+        );
+
+        throw error;
+    }
+
+    return data;
+}
+
+// ============================================================
+// CREAR NOTEBOOK
+// ============================================================
+
+export async function crearNotebook(
+    numeroInventario,
+    idCaja,
+    estado
+) {
+
+    const { data, error } = await supabase
+        .from('notebooks')
+        .insert({
+            numero_inventario: numeroInventario,
+            id_caja: idCaja,
+            estado: estado
+        })
+        .select(`
+            id,
+            numero_inventario,
+            id_caja,
+            estado,
+            observaciones
+        `)
+        .single();
+
+    if (error) {
+
+        console.error(
+            'Error al crear notebook:',
+            error.message
+        );
+
+        throw error;
+    }
+
+    return data;
+}
 
 // ============================================================
 // REGISTRAR RESERVA
