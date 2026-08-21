@@ -652,3 +652,110 @@ export async function getReservasPorFecha(fecha) {
 // Devolver reservas actualizadas
     return reservas;
 }
+
+// ============================================================
+// OBTENER NOTEBOOKS DE UNA RESERVA
+// ============================================================
+
+export async function getNotebooksDeReserva(idReserva) {
+
+    const {
+        data,
+        error
+    } = await supabase
+        .from('reserva_notebooks')
+        .select(`
+            id_notebook,
+            notebooks (
+                id,
+                numero_inventario,
+                id_caja,
+                estado
+            )
+        `)
+        .eq('id_reserva', idReserva);
+
+    if (error) {
+
+        console.error(
+            'Error obteniendo notebooks de la reserva:',
+            error.message
+        );
+
+        throw new Error(
+            'No se pudieron obtener las notebooks de la reserva.'
+        );
+    }
+
+    return data;
+}
+
+// ============================================================
+// OBTENER UNA RESERVA POR ID
+// ============================================================
+
+export async function getReservaPorId(idReserva) {
+
+    const { data, error } = await supabase
+        .from('reservas')
+        .select(`
+            id,
+            id_profesor,
+            id_curso,
+            fecha,
+            hora_inicio,
+            hora_fin,
+            cantidad_notebooks,
+            estado,
+            observaciones,
+
+            profesores (
+                id,
+                nombre,
+                apellido
+            ),
+
+            cursos (
+                id,
+                nombre
+            )
+        `)
+        .eq('id', idReserva)
+        .single();
+
+    if (error) {
+
+        console.error(
+            'Error obteniendo reserva:',
+            error.message
+        );
+
+        throw error;
+    }
+
+    return data;
+}
+
+// ============================================================
+// CANCELAR RESERVA
+// ============================================================
+
+export async function cancelarReserva(idReserva) {
+    const { error } = await supabase
+        .from('reservas')
+        .update({
+            estado: 'CANCELADA'
+        })
+        .eq('id', idReserva);
+
+    if (error) {
+        console.error(
+            'Error cancelando reserva:',
+            error.message
+        );
+        throw new Error(
+            'No se pudo cancelar la reserva.'
+        );
+    }
+    return true;
+}

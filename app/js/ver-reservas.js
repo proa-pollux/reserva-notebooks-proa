@@ -17,7 +17,7 @@ function obtenerFechaActual() {
     const mes = String(hoy.getMonth() + 1).padStart(2, '0');
     const dia = String(hoy.getDate()).padStart(2, '0');
 
-    return '${anio}-${mes}-${dia};'
+    return `${anio}-${mes}-${dia}`;
 }
 
 // ============================================================
@@ -28,7 +28,7 @@ function convertirFecha(fecha) {
     const mes = String(fecha.getMonth() + 1).padStart(2, '0');
     const dia = String(fecha.getDate()).padStart(2, '0');
 
-    return '${anio}-${mes}-${dia};'
+    return `${anio}-${mes}-${dia}`;
 }
 
 
@@ -184,7 +184,7 @@ function crearTarjetaReserva(
 ) {
     const tarjeta = document.createElement('div');
 
-    tarjeta.className = 'bg-surface-container-lowest rounded-xl p-md shadow-sm border border-surface-variant flex flex-col gap-sm relative overflow-hidden hover:shadow-md transition-shadow';
+    tarjeta.className = 'cursor-pointer bg-surface-container-lowest rounded-xl p-md shadow-sm border border-surface-variant flex flex-col gap-sm relative overflow-hidden hover:shadow-md transition-shadow';
 
 
     // ========================================================
@@ -267,16 +267,32 @@ function crearTarjetaReserva(
             </div>
         </div>
     `;
+    // ========================================================
+    // CLICK EN LA TARJETA
+    // ========================================================
+
+    tarjeta.addEventListener('click', () => {
+
+    window.location.href =
+        `detalle-reservas.html?id_reserva=${reserva.id}`;
+
+    });
+
+
+    // ========================================================
+    // AGREGAR TARJETA
+    // ========================================================
 
     reservasContainer.appendChild(tarjeta);
 }
-
 // ============================================================
 // EVENTO CAMBIO DE FECHA
 // ============================================================
-selectorFecha.addEventListener('change',cargarReservas);
 
-
+selectorFecha.addEventListener(
+    'change',
+    cargarReservas
+);
 // ============================================================
 // INICIAR
 // ============================================================

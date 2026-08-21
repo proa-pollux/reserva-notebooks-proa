@@ -10,8 +10,8 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script src="../js/tailwind.js"></script>
 
-    <script type="module" src="../js/frontend.js"></script>
-    <script type="module" src="../js/reservar.js"> </script>
+    <script defer type="module" src="../js/frontend.js"></script>
+    <script defer type="module" src="../js/reservar.js"> </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -24,7 +24,7 @@
 
 <body class="bg-background text-on-background min-h-screen flex flex-col font-body-lg">
     <header class="fixed top-0 w-full z-50 bg-surface flex items-center px-md h-12 border-b border-surface-variant">
-        <button class="text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-full p-2 -ml-2 flex items-center justify-center">
+        <button id=btn-flecha-volver class="text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-full p-2 -ml-2 flex items-center justify-center">
             <span class="material-symbols-outlined"> arrow_back </span>
         </button>
 
