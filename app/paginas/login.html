@@ -17,7 +17,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="../css/style.css">
-
 </head>
 
 <body class="bg-background text-on-surface min-h-screen flex flex-col justify-center items-center px-container-padding">
@@ -131,22 +130,6 @@
 
     </main>
 
-    <!-- JS para el toggle de contraseña (puede incluirse dentro de login.js) -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const togglePassword = document.getElementById('togglePassword');
-            const passwordInput = document.getElementById('password');
-            const toggleIcon = document.getElementById('togglePasswordIcon');
-
-            if (togglePassword && passwordInput) {
-                togglePassword.addEventListener('click', () => {
-                    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                    passwordInput.setAttribute('type', type);
-                    toggleIcon.textContent = type === 'password' ? 'visibility' : 'visibility_off';
-                });
-            }
-        });
-    </script>
 </body>
 
 </html>
