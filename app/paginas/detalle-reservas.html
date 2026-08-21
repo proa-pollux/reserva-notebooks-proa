@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es" class="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Detalle de Reserva</title>
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="../js/tailwind.js"></script>
+
+    <script defer type="module" src="../js/detalle-reservas.js"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&display=swap">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:FILL@0..1&display=swap">
+
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+
+<body class="bg-background text-on-background min-h-screen flex flex-col antialiased">
+
+
+    <!-- HEADER -->
+    <header class="bg-surface fixed top-0 w-full grid grid-cols-[auto_1fr_auto] items-center px-md h-12 z-50 border-b border-outline-variant">
+        <button
+            id="btnVolver"
+            aria-label="Volver a la página anterior"
+            class="text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-full p-1 active:opacity-80 flex items-center justify-center"
+        >
+            <span class="material-symbols-outlined">arrow_back</span>
+        </button>
+
+        <h1 class="font-headline-md-mobile text-headline-md-mobile font-bold text-primary text-center">
+            Detalle de Reserva
+        </h1>
+
+        <!-- Elemento de balanceo para centrado flex/grid -->
+        <div class="w-8"></div>
+    </header>
+
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="flex-grow pt-[72px] pb-[110px] px-md max-w-3xl mx-auto w-full flex flex-col gap-md">
+
+        <!-- CABECERA DE RESERVA -->
+        <section class="bg-surface-container-lowest rounded-xl p-md shadow-sm border border-outline-variant flex flex-col gap-sm">
+            <div class="flex justify-between items-start">
+                <div>
+                    <h2 id="tituloReserva" class="font-title-lg text-title-lg text-on-surface">Reserva</h2>
+                    <p id="idReserva" class="font-body-md text-body-md text-on-surface-variant">ID</p>
+                </div>
+
+                <!-- ESTADO -->
+                <div id="estadoContainer" class="px-3 py-1 rounded-full flex items-center gap-xs">
+                    <span id="estadoIcono" class="material-symbols-outlined text-[16px]">schedule</span>
+                    <span id="estadoTexto" class="font-label-lg text-label-lg uppercase">CARGANDO</span>
+                </div>
+            </div>
+
+            <div class="h-px bg-surface-variant w-full my-sm"></div>
+
+            <!-- FECHA Y HORA -->
+            <div class="grid grid-cols-2 gap-gutter">
+                <div class="flex flex-col gap-xs">
+                    <span class="font-label-lg text-label-lg text-on-surface-variant">Fecha</span>
+                    <div class="flex items-center gap-xs text-on-surface">
+                        <span class="material-symbols-outlined text-[20px] text-primary">calendar_month</span>
+                        <span id="fechaReserva" class="font-body-lg text-body-lg">-</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-xs">
+                    <span class="font-label-lg text-label-lg text-on-surface-variant">Horario</span>
+                    <div class="flex items-center gap-xs text-on-surface">
+                        <span class="material-symbols-outlined text-[20px] text-primary">schedule</span>
+                        <span id="horaReserva" class="font-body-lg text-body-lg">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CURSO -->
+            <div class="mt-sm flex flex-col gap-xs">
+                <span class="font-label-lg text-label-lg text-on-surface-variant">Curso</span>
+                <div class="flex items-center gap-xs text-on-surface">
+                    <span class="material-symbols-outlined text-[20px] text-primary">school</span>
+                    <span id="cursoReserva" class="font-body-lg text-body-lg">-</span>
+                </div>
+            </div>
+
+            <!-- CANTIDAD -->
+            <div class="mt-sm flex flex-col gap-xs">
+                <span class="font-label-lg text-label-lg text-on-surface-variant">Cantidad de notebooks</span>
+                <div class="flex items-center gap-xs text-on-surface">
+                    <span class="material-symbols-outlined text-[20px] text-primary">laptop_mac</span>
+                    <span id="cantidadReserva" class="font-body-lg text-body-lg font-semibold">-</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- EQUIPAMIENTO -->
+        <section class="bg-surface-container-lowest rounded-xl p-md shadow-sm border border-outline-variant flex flex-col gap-md">
+            <div class="flex items-center gap-sm text-primary">
+                <span class="material-symbols-outlined">laptop_mac</span>
+                <h3 class="font-title-lg text-title-lg text-on-surface">Equipamiento</h3>
+            </div>
+
+            <div class="h-px bg-surface-variant w-full"></div>
+
+            <div id="equipamientoContainer">
+                <p class="text-center text-on-surface-variant py-4">Cargando equipamiento...</p>
+            </div>
+        </section>
+
+        <!-- DATOS DEL PROFESOR -->
+        <section class="bg-surface-container-lowest rounded-xl p-md shadow-sm border border-outline-variant flex flex-col gap-sm">
+            <h3 class="font-title-lg text-title-lg text-on-surface">Datos del Solicitante</h3>
+
+            <div class="flex items-center gap-md">
+                <div class="w-12 h-12 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center">
+                    <span id="inicialesProfesor" class="font-headline-md text-headline-md">--</span>
+                </div>
+
+                <div class="flex flex-col">
+                    <span id="nombreProfesor" class="font-body-lg text-body-lg font-bold text-on-surface">-</span>
+                    <span class="font-body-md text-body-md text-on-surface-variant">Profesor</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- OBSERVACIONES -->
+        <section id="observacionesSection" class="hidden bg-surface-container-lowest rounded-xl p-md shadow-sm border border-outline-variant">
+            <h3 class="font-title-lg text-title-lg text-on-surface mb-sm">Observaciones</h3>
+            <p id="observacionesReserva" class="font-body-md text-body-md text-on-surface-variant"></p>
+        </section>
+
+        <!-- MENSAJE DINÁMICO -->
+        <section id="mensajeEstado" class="bg-surface-variant rounded-lg p-sm flex items-start gap-sm">
+            <span class="material-symbols-outlined text-secondary">info</span>
+            <p id="mensajeEstadoTexto" class="font-body-md text-body-md text-on-surface-variant">Cargando estado...</p>
+        </section>
+
+    </main>
+
+
+    <!-- BARRA DE ACCIONES FLOTANTE -->
+    <div id="barraAcciones" class="fixed bottom-0 left-0 w-full bg-surface border-t border-outline-variant p-md flex justify-center z-50">
+        <div class="w-full max-w-md flex flex-col gap-sm">
+
+            <!-- CANCELAR -->
+            <button
+                id="btnCancelar"
+                class="hidden w-full bg-error text-on-error font-label-lg text-label-lg rounded-full py-4 flex items-center justify-center gap-sm shadow-md hover:bg-error/90 active:scale-95 transition-all"
+            >
+                <span class="material-symbols-outlined">cancel</span>
+                Cancelar reserva
+            </button>
+
+            <!-- DEVOLVER -->
+            <button
+                id="btnDevolver"
+                class="hidden w-full bg-primary text-on-primary font-label-lg text-label-lg rounded-full py-4 flex items-center justify-center gap-sm shadow-md hover:opacity-90 active:scale-95 transition-all"
+            >
+                <span class="material-symbols-outlined">assignment_return</span>
+                Marcar como devuelta
+            </button>
+
+            <!-- FINALIZADA -->
+            <div id="mensajeFinalizada" class="hidden w-full bg-green-100 text-green-800 rounded-full py-4 flex items-center justify-center gap-sm font-label-lg">
+                <span class="material-symbols-outlined">check_circle</span>
+                Reserva devuelta
+            </div>
+
+            <!-- CANCELADA -->
+            <div id="mensajeCancelada" class="hidden w-full bg-red-100 text-red-800 rounded-full py-4 flex items-center justify-center gap-sm font-label-lg">
+                <span class="material-symbols-outlined">cancel</span>
+                Reserva cancelada
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
