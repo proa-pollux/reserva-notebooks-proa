@@ -11,6 +11,8 @@
     <script src="../js/tailwind.js"></script>
     <script defer src="../js/menu.js"></script>
     <script type="module" src="../js/backend.js"></script>
+    <script defer type="module" src="../js/logout.js"></script>
+
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,7 +44,7 @@
 <nav id="side-nav"
     class="fixed inset-y-0 left-0 z-[60] flex flex-col py-lg bg-surface-container-low h-full w-80 rounded-r-xl shadow-sm transform -translate-x-full md:translate-x-0 md:relative transition-transform duration-300">
 
-    <div class="px-lg pb-lg mb-md border-b border-outline-variant">
+    <div class="px-lg mb-xl">
         <h2 class="font-display-lg text-display-lg text-primary">
             Gestión Técnica
         </h2>
@@ -104,10 +106,12 @@
             </span>
 
         </a>
-                <div class="mt-auto px-md pb-lg">
+        <div class="mt-auto px-md pb-lg">
 
-            <a href="login.html"
-                class="text-on-surface-variant px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
+            <button
+                type="button"
+                data-logout
+                class="text-on-surface-variant px-2 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
 
                 <span class="material-symbols-outlined">
                     logout
@@ -116,9 +120,7 @@
                 <span class="font-label-lg">
                     Cerrar sesión
                 </span>
-
-            </a>
-
+            </button>
         </div>
 
     </nav>

@@ -18,6 +18,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/style.css">
 
+    <script defer type="module" src="../js/logout.js"></script>
+
 </head>
 
 <body class="bg-surface text-on-surface min-h-screen flex antialiased">
@@ -25,101 +27,47 @@
     <!-- Menú lateral -->
 
     <aside class="hidden md:flex flex-col py-lg bg-surface-container-low h-full w-80 rounded-r-xl shadow-sm fixed inset-y-0 left-0 z-50">
-
         <div class="px-md mb-xl">
-
             <h2 class="font-display-lg text-display-lg text-primary">
                 Gestión Técnica
             </h2>
-
         </div>
-
-        <nav class="flex-1 flex flex-col gap-sm">
-
+        <!-- El botón ahora está adentro del nav junto a las demás opciones -->
+        <nav class="flex-1 flex flex-col gap-sm overflow-y-auto px-2">
             <a href="menu.html"
-                class="text-on-surface-variant mx-2 px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
-
-                <span class="material-symbols-outlined">
-                    home
-                </span>
-
-                <span class="font-label-lg">
-                    Inicio
-                </span>
-
+                class="text-on-surface-variant px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full no-underline">
+                <span class="material-symbols-outlined">home</span>
+                <span class="font-label-lg">Inicio</span>
             </a>
-
             <a href="reservar.html"
-                class="text-on-surface-variant mx-2 px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
-
-                <span class="material-symbols-outlined">
-                    laptop_mac
-                </span>
-
-                <span class="font-label-lg">
-                    Reservar notebooks
-                </span>
-
+                class="text-on-surface-variant px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full no-underline">
+                <span class="material-symbols-outlined">laptop_mac</span>
+                <span class="font-label-lg">Reservar notebooks</span>
             </a>
-
             <a href="listado-notebooks.html"
-                class="text-on-surface-variant mx-2 px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
-
-                <span class="material-symbols-outlined">
-                    inventory_2
-                </span>
-
-                <span class="font-label-lg">
-                    Inventario de Equipos
-                </span>
-
+                class="text-on-surface-variant px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full no-underline">
+                <span class="material-symbols-outlined">inventory_2</span>
+                <span class="font-label-lg">Inventario de Equipos</span>
             </a>
-
             <a href="ver-reservas.html"
-                class="text-on-surface-variant mx-2 px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
-
-                <span class="material-symbols-outlined">
-                    event_note
-                </span>
-
-                <span class="font-label-lg">
-                    Ver reservas
-                </span>
-
+                class="text-on-surface-variant px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full no-underline">
+                <span class="material-symbols-outlined">event_note</span>
+                <span class="font-label-lg">Ver reservas</span>
             </a>
-
             <a href="mis-reservas.html"
-                class="bg-secondary-container text-on-secondary-container rounded-full mx-2 px-4 py-3 flex items-center gap-md">
-
-                <span class="material-symbols-outlined">
-                    history
-                </span>
-
-                <span class="font-label-lg">
-                    Mis reservas
-                </span>
-
+                class="bg-secondary-container text-on-secondary-container rounded-full px-4 py-3 flex items-center gap-md no-underline">
+                <span class="material-symbols-outlined">history</span>
+                <span class="font-label-lg">Mis reservas</span>
             </a>
-
+            <button
+                type="button"
+                data-logout
+                class="w-full text-on-surface-variant px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full no-underline border-none outline-none cursor-pointer"
+            >
+                <span class="material-symbols-outlined">logout</span>
+                <span class="font-label-lg">Cerrar sesión</span>
+            </button>
         </nav>
-
-        <div class="mt-auto px-2">
-
-            <a href="index.html"
-                class="text-on-surface-variant mx-2 px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
-
-                <span class="material-symbols-outlined">
-                    logout
-                </span>
-
-                <span class="font-label-lg">
-                    Cerrar sesión
-                </span>
-
-            </a>
-
-        </div>
-
     </aside>
 
     <main class="flex-1 md:ml-80 flex flex-col min-h-screen">

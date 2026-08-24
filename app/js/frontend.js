@@ -1,5 +1,4 @@
-import {getProfesores, getCursos} from './backend.js';
-
+import { getProfesores, getCursos } from './backend.js';
 // ============================================================
 // ELEMENTOS
 // ============================================================
