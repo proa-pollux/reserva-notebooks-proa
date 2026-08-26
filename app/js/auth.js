@@ -64,7 +64,7 @@ export async function verificarSesion() {
     } = await supabase
         .from('roles_usuario')
         .select('rol')
-        .eq('id_profesor', user.id)
+        .eq('id', user.id)
         .single();
 
     if (errorRol || !rolData) {
