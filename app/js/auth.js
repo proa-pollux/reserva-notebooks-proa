@@ -58,9 +58,47 @@ export async function verificarSesion() {
         return null;
     }
 
-    return user; // Retorna el usuario autenticado para usar sus datos
-}
+    const {
+        data: rolData,
+        error: errorRol
+    } = await supabase
+        .from('roles_usuario')
+        .select('rol')
+        .eq('id', user.id)
+        .single();
 
+    if (errorRol || !rolData) {
+
+        console.error(
+            'No se pudo obtener el rol del usuario:',
+            errorRol
+        );
+
+        alert(
+            'El usuario no tiene un rol asignado.'
+        );
+
+        await supabase.auth.signOut();
+
+        window.location.href = 'login.html';
+
+        return null;
+    }
+
+    window.usuarioActual = user;
+    window.rolUsuario = rolData.rol;
+    
+    console.log(
+        'Usuario autenticado:', window.usuarioActual);
+
+    console.log(
+        'Rol del usuario:', window.rolUsuario);
+       
+    return {
+        user: user,
+        rol: rolData.rol
+    };  
+}  
 // ============================================================
 // REDIRECCIONAR SI YA TIENE SESIÓN (Para la vista login.html)
 // ============================================================
