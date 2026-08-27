@@ -297,4 +297,141 @@ function crearTarjetaReserva(reserva) {
         </div>
     `;
 
-    tarjeta.addEventListener('
+    tarjeta.addEventListener('click', () => {
+        window.location.href = `detalle-reservas.html?id_reserva=${reserva.id}`;
+    });
+
+    tarjeta.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            window.location.href = `detalle-reservas.html?id_reserva=${reserva.id}`;
+        }
+    });
+
+    return tarjeta;
+}
+
+// ============================================================
+// MOSTRAR CARGANDO
+// ============================================================
+
+function mostrarCargando() {
+    reservasContainer.innerHTML = `
+        <div class="bg-surface-container-lowest rounded-xl p-xl text-center border border-outline-variant/30">
+            <span class="material-symbols-outlined animate-spin text-primary text-[32px]">
+                progress_activity
+            </span>
+
+            <p class="mt-sm text-on-surface-variant">
+                Cargando tus reservas...
+            </p>
+        </div>
+    `;
+}
+
+// ============================================================
+// MOSTRAR SIN RESERVAS
+// ============================================================
+
+function mostrarSinReservas() {
+    reservasContainer.innerHTML = `
+        <div class="bg-surface-container-lowest rounded-xl p-xl text-center border border-outline-variant/30">
+            <div class="mx-auto bg-surface-variant w-16 h-16 rounded-full flex items-center justify-center">
+                <span class="material-symbols-outlined text-on-surface-variant text-[32px]">
+                    event_busy
+                </span>
+            </div>
+
+            <h3 class="font-title-lg text-title-lg mt-md">
+                No tenés reservas
+            </h3>
+
+            <p class="font-body-md text-on-surface-variant mt-xs">
+                Todavía no realizaste ninguna reserva de notebooks.
+            </p>
+        </div>
+    `;
+}
+
+// ============================================================
+// MOSTRAR ERROR
+// ============================================================
+
+function mostrarError(mensaje) {
+    reservasContainer.innerHTML = `
+        <div class="bg-error-container text-on-error-container rounded-xl p-md flex items-start gap-sm">
+            <span class="material-symbols-outlined">
+                error
+            </span>
+
+            <div>
+                <p class="font-title-lg">
+                    No se pudieron cargar las reservas
+                </p>
+
+                <p class="font-body-md mt-xs">
+                    ${mensaje}
+                </p>
+            </div>
+        </div>
+    `;
+}
+
+// ============================================================
+// CARGAR RESERVAS
+// ============================================================
+
+async function cargarReservas() {
+    mostrarCargando();
+
+    try {
+        // VERIFICAR SESIÓN
+        const usuario = await verificarSesion();
+
+        if (!usuario) {
+            return;
+        }
+
+        console.log('Usuario autenticado:', usuario.id);
+
+        // OBTENER RESERVAS
+        const reservas = await getMisReservas(usuario.id);
+
+        console.log('Mis reservas:', reservas);
+
+        // COMPROBAR SI HAY RESERVAS
+        if (!reservas || reservas.length === 0) {
+            mostrarSinReservas();
+            return;
+        }
+
+        // MOSTRAR RESERVAS
+        reservasContainer.innerHTML = '';
+
+        reservas
+            .sort((a, b) => {
+                const fechaA = new Date(`${a.fecha}T${a.hora_inicio}`);
+                const fechaB = new Date(`${b.fecha}T${b.hora_inicio}`);
+                return fechaB - fechaA;
+            })
+            .forEach(reserva => {
+                const tarjeta = crearTarjetaReserva(reserva);
+                reservasContainer.appendChild(tarjeta);
+            });
+
+    } catch (error) {
+        console.error('Error cargando mis reservas:', error);
+
+        mostrarError(
+            error.message || 'Ocurrió un error inesperado.'
+        );
+    }
+}
+
+// ============================================================
+// INICIAR
+// ============================================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    cargarReservas();
+});
