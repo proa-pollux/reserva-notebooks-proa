@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Gestión de Profesores - Reserva de Notebooks</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="../js/tailwind.js"></script>
+
+    <!-- Scripts -->
+    <script defer src="../js/menu.js"></script>
+    <script type="module" src="../js/backend.js"></script>
+    <script defer type="module" src="../js/auth.js"></script>
+    <script defer type="module" src="../js/gestion-profesores.js"></script>
+    <script defer type="module" src="../js/logout.js"></script>
+    <script type="module" src="../js/roles.js"></script>
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+    <!-- CSS global -->
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="bg-background text-on-background min-h-screen flex flex-col md:flex-row">
+
+    <!-- ============================================================
+        HEADER MOBILE
+    ============================================================ -->
+    <header class="fixed top-0 w-full bg-surface dark:bg-background flex items-center px-md h-12 z-50 md:hidden">
+        <button id="mobile-menu-btn" class="p-2 text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-full">
+            <span class="material-symbols-outlined">menu</span>
+        </button>
+        <div class="ml-sm font-headline-md-mobile text-headline-md-mobile font-bold text-primary">
+            Reserva de Notebooks
+        </div>
+    </header>
+
+    <!-- ============================================================
+        MENÚ LATERAL
+    ============================================================ -->
+    <nav id="side-nav" class="fixed inset-y-0 left-0 z-[60] flex flex-col py-lg bg-surface-container-low h-full w-80 rounded-r-xl shadow-sm transform -translate-x-full md:translate-x-0 md:relative transition-transform duration-300">
+        <div class="px-lg mb-xl">
+            <h2 class="font-display-lg text-display-lg text-primary">
+                Gestión Técnica
+            </h2>
+        </div>
+
+        <div class="flex-1 overflow-y-auto">
+            <a href="menu.html" data-roles="admin profesor" class="text-on-surface-variant mx-2 px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
+                <span class="material-symbols-outlined">home</span>
+                <span class="font-label-lg">Inicio</span>
+            </a>
+
+            <a href="reservar.html" data-roles="admin profesor" class="text-on-surface-variant mx-2 px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
+                <span class="material-symbols-outlined">laptop_mac</span>
+                <span class="font-label-lg">Reservar notebooks</span>
+            </a>
+
+            <a href="listado-notebooks.html" data-roles="admin" class="text-on-surface-variant mx-2 px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
+                <span class="material-symbols-outlined">inventory_2</span>
+                <span class="font-label-lg">Inventario de Equipos</span>
+            </a>
+
+            <a href="ver-reservas.html" data-roles="admin" class="text-on-surface-variant mx-2 px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
+                <span class="material-symbols-outlined">event_note</span>
+                <span class="font-label-lg">Ver reservas</span>
+            </a>
+
+            <a href="mis-reservas.html" data-roles="admin profesor" class="text-on-surface-variant mx-2 px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
+                <span class="material-symbols-outlined">history</span>
+                <span class="font-label-lg">Mis reservas</span>
+            </a>
+
+            <!-- Gestión de profesores -->
+            <a href="gestion-profesores.html" data-roles="admin" class="bg-secondary-container text-on-secondary-container rounded-full mx-2 px-4 py-3 flex items-center gap-md mt-2">
+                <span class="material-symbols-outlined filled">manage_accounts</span>
+                <span class="font-label-lg font-bold">Gestión de profesores</span>
+            </a>
+        </div>
+
+        <!-- Logout -->
+        <div class="mt-auto px-md pb-lg">
+            <button type="button" data-logout data-roles="admin profesor" class="text-on-surface-variant px-2 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
+                <span class="material-symbols-outlined">logout</span>
+                <span class="font-label-lg">Cerrar sesión</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Overlay mobile -->
+    <div id="drawer-overlay" class="fixed inset-0 bg-black/40 z-50 hidden md:hidden"></div>
+
+    <!-- ============================================================
+        CONTENIDO PRINCIPAL
+    ============================================================ -->
+    <main class="flex-1 pt-16 md:pt-8 md:ml-8 px-container-padding pb-lg">
+        <div class="max-w-6xl mx-auto">
+
+            <!-- TÍTULO -->
+            <h1 class="font-display-lg text-display-lg text-primary mb-xs">
+                Gestión de Profesores
+            </h1>
+            <p class="font-body-lg text-on-surface-variant mb-xl">
+                Administrá los profesores registrados en el sistema.
+            </p>
+
+            <!-- TABS -->
+            <div class="flex w-full bg-surface border-b border-outline-variant overflow-x-auto hide-scrollbar mb-lg">
+                <button id="btn-tab-editar" onclick="switchTab('tab-editar')" class="tab-btn font-title-lg text-title-lg py-3 px-4 border-b-2 border-primary text-primary font-bold whitespace-nowrap">
+                    Editar
+                </button>
+
+                <button id="btn-tab-eliminar" onclick="switchTab('tab-eliminar')" class="tab-btn font-title-lg text-title-lg py-3 px-4 border-b-2 border-transparent text-on-surface-variant whitespace-nowrap">
+                    Dar de baja
+                </button>
+
+                <button id="btn-tab-agregar" onclick="switchTab('tab-agregar')" class="tab-btn font-title-lg text-title-lg py-3 px-4 border-b-2 border-transparent text-on-surface-variant whitespace-nowrap">
+                    Agregar
+                </button>
+
+                <button id="btn-tab-inactivos" onclick="switchTab('tab-inactivos')" class="tab-btn font-title-lg text-title-lg py-3 px-4 border-b-2 border-transparent text-on-surface-variant whitespace-nowrap">
+                    Inactivos
+                </button>
+            </div>
+
+            <!-- TAB EDITAR -->
+            <section id="tab-editar" class="tab-content active">
+                <div class="flex flex-col gap-md mb-lg">
+                    <p class="font-body-lg text-on-surface-variant">
+                        Buscá y seleccioná un profesor para modificar sus datos.
+                    </p>
+
+                    <div class="relative w-full">
+                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">
+                            search
+                        </span>
+                        <input id="buscar-profesor-editar" type="text" placeholder="Buscar profesor para editar..." class="w-full bg-surface-container-low border border-outline-variant rounded-full py-3 pl-12 pr-4 font-body-lg text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm">
+                    </div>
+                </div>
+
+                <div id="lista-profesores-editar" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-md">
+                    <!-- JS -->
+                </div>
+            </section>
+
+            <!-- TAB DAR DE BAJA -->
+            <section id="tab-eliminar" class="tab-content hidden">
+                <div class="flex flex-col gap-md mb-lg">
+                    <p class="font-body-lg text-on-surface-variant">
+                        Buscá un profesor para darle de baja del sistema.
+                    </p>
+
+                    <div class="relative w-full">
+                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">
+                            search
+                        </span>
+                        <input id="buscar-profesor-eliminar" type="text" placeholder="Buscar profesor para dar de baja..." class="w-full bg-surface-container-low border border-error-container rounded-full py-3 pl-12 pr-4 font-body-lg text-on-surface focus:outline-none focus:border-error focus:ring-1 focus:ring-error shadow-sm">
+                    </div>
+                </div>
+
+                <div id="lista-profesores-eliminar" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-md">
+                    <!-- JS -->
+                </div>
+            </section>
+
+            <!-- TAB AGREGAR -->
+            <section id="tab-agregar" class="tab-content hidden">
+                <div class="max-w-2xl mx-auto bg-surface-container-lowest rounded-xl shadow-sm border border-outline-variant/30 overflow-hidden">
+                    <div class="px-lg py-md border-b border-outline-variant/30 bg-surface-container-low/50">
+                        <h2 class="font-title-lg text-title-lg text-on-surface flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary">
+                                person_add
+                            </span>
+                            Registrar Nuevo Profesor
+                        </h2>
+                        <p class="font-body-md text-body-md text-on-surface-variant mt-1">
+                            Completá los datos para registrar un nuevo docente.
+                        </p>
+                    </div>
+
+                    <form id="form-agregar-profesor" class="p-lg flex flex-col gap-lg">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+                            <div class="relative">
+                                <label class="block font-label-lg text-label-lg text-on-surface-variant mb-2">
+                                    Nombre
+                                </label>
+                                <input id="nuevo-nombre" type="text" required class="w-full bg-transparent border border-outline rounded-md px-4 py-3 font-body-lg text-on-surface focus:border-primary">
+                            </div>
+
+                            <div class="relative">
+                                <label class="block font-label-lg text-label-lg text-on-surface-variant mb-2">
+                                    Apellido
+                                </label>
+                                <input id="nuevo-apellido" type="text" required class="w-full bg-transparent border border-outline rounded-md px-4 py-3 font-body-lg text-on-surface focus:border-primary">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block font-label-lg text-label-lg text-on-surface-variant mb-2">
+                                Correo electrónico
+                            </label>
+                            <div class="relative">
+                                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">
+                                    mail
+                                </span>
+                                <input id="nuevo-email" type="email" required class="w-full bg-transparent border border-outline rounded-md py-3 pl-10 pr-4 font-body-lg text-on-surface focus:border-primary">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block font-label-lg text-label-lg text-on-surface-variant mb-2">
+                                Contraseña provisoria
+                            </label>
+                            <div class="relative">
+                                <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">
+                                    key
+                                </span>
+                                <input id="nuevo-password" type="password" minlength="6" required class="w-full bg-transparent border border-outline rounded-md py-3 pl-10 pr-10 font-body-lg text-on-surface focus:border-primary">
+                            </div>
+                        </div>
+
+                        <div class="flex justify-end pt-sm border-t border-outline-variant/30">
+                            <button id="btn-agregar-profesor" type="submit" class="w-full md:w-auto px-8 py-3 rounded-full bg-primary text-on-primary font-title-lg font-bold hover:bg-primary-container transition-colors shadow-sm flex justify-center items-center gap-2">
+                                <span class="material-symbols-outlined">
+                                    save
+                                </span>
+                                Guardar Profesor
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- TAB INACTIVOS -->
+            <section id="tab-inactivos" class="tab-content hidden">
+                <div class="flex flex-col gap-md mb-lg">
+                    <p class="font-body-lg text-on-surface-variant">
+                        Acá aparecen los profesores que fueron dados de baja.
+                    </p>
+
+                    <div class="relative w-full">
+                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">
+                            search
+                        </span>
+                        <input id="buscar-profesor-inactivos" type="text" placeholder="Buscar profesor inactivo..." class="w-full bg-surface-container-low border border-outline-variant rounded-full py-3 pl-12 pr-4 font-body-lg text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary shadow-sm">
+                    </div>
+                </div>
+
+                <div id="lista-profesores-inactivos" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-md">
+                    <!-- JS -->
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- ============================================================
+        MODAL EDITAR PROFESOR
+    ============================================================ -->
+    <div id="modal-editar-profesor" class="hidden fixed inset-0 z-[100] bg-black/40 flex items-center justify-center p-4">
+        <div class="bg-surface-container-lowest rounded-2xl shadow-xl w-full max-w-lg overflow-hidden">
+            
+            <div class="px-lg py-md border-b border-outline-variant/30 flex items-center justify-between">
+                <div>
+                    <h2 class="font-title-lg text-title-lg text-on-surface">
+                        Editar profesor
+                    </h2>
+                    <p class="text-body-md text-on-surface-variant">
+                        Modificá los datos del docente.
+                    </p>
+                </div>
+
+                <button type="button" onclick="cerrarModalEditar()" class="p-2 rounded-full text-on-surface-variant hover:bg-surface-container-high">
+                    <span class="material-symbols-outlined">
+                        close
+                    </span>
+                </button>
+            </div>
+
+            <form class="p-lg flex flex-col gap-md" onsubmit="guardarEdicionProfesor(event)">
+                <input id="editar-profesor-id" type="hidden">
+
+                <div>
+                    <label class="block font-label-lg text-on-surface-variant mb-2">
+                        Nombre
+                    </label>
+                    <input id="editar-nombre" type="text" required class="w-full border border-outline rounded-md px-4 py-3">
+                </div>
+
+                <div>
+                    <label class="block font-label-lg text-on-surface-variant mb-2">
+                        Apellido
+                    </label>
+                    <input id="editar-apellido" type="text" required class="w-full border border-outline rounded-md px-4 py-3">
+                </div>
+
+                <div>
+                    <label class="block font-label-lg text-on-surface-variant mb-2">
+                        Nueva contraseña
+                    </label>
+                    <input id="editar-password" type="password" minlength="6" placeholder="Dejar vacío para no cambiarla" class="w-full border border-outline rounded-md px-4 py-3">
+                    <p class="text-sm text-on-surface-variant mt-1">
+                        Dejá vacío este campo si no querés cambiar la contraseña.
+                    </p>
+                </div>
+
+                <div class="flex justify-end gap-2 pt-md">
+                    <button type="button" onclick="cerrarModalEditar()" class="px-6 py-3 rounded-full bg-surface-container-high text-on-surface">
+                        Cancelar
+                    </button>
+
+                    <button id="btn-guardar-edicion" type="submit" class="px-6 py-3 rounded-full bg-primary text-on-primary font-bold flex items-center gap-2">
+                        <span class="material-symbols-outlined">
+                            save
+                        </span>
+                        Guardar cambios
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+</body>
+
+</html>

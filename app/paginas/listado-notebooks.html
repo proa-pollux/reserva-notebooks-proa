@@ -11,8 +11,8 @@
     <script src="../js/tailwind.js"></script>
 
     <script type="module" src="../js/listado-notebooks.js"></script>
-    <script defer type="module" src="../js/login.js"></script>
     <script defer type="module" src="../js/logout.js"></script>
+    <script type="module" src="../js/roles.js"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,7 +49,7 @@
 
         <ul class="flex-1 space-y-2">
             <li>
-                <a href="menu.html" class="text-on-surface-variant mx-2 px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
+                <a href="menu.html" data-roles="admin profesor" class="text-on-surface-variant mx-2 px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
                     <span class="material-symbols-outlined">
                         home
                     </span>
@@ -60,7 +60,7 @@
             </li>
 
             <li>
-                <a href="reservar.html" class="text-on-surface-variant mx-2 px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
+                <a href="reservar.html" data-roles="admin profesor" class="text-on-surface-variant mx-2 px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
                     <span class="material-symbols-outlined">
                         laptop_mac
                     </span>
@@ -70,7 +70,7 @@
                 </a>
             </li>
             <li>
-                <a href="listado-notebooks.html" class="bg-secondary-container text-on-secondary-container rounded-full mx-2 px-4 py-3 flex items-center gap-md">
+                <a href="listado-notebooks.html" data-roles="admin" class="bg-secondary-container text-on-secondary-container rounded-full mx-2 px-4 py-3 flex items-center gap-md">
                     <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">
                         inventory_2
                     </span>
@@ -81,7 +81,7 @@
             </li>
 
             <li>
-                <a href="ver-reservas.html" class="text-on-surface-variant mx-2 px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
+                <a href="ver-reservas.html" data-roles="admin" class="text-on-surface-variant mx-2 px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
                     <span class="material-symbols-outlined">
                         event_note
                     </span>
@@ -92,7 +92,7 @@
             </li>
 
             <li>
-                <a href="mis-reservas.html" class="text-on-surface-variant mx-2 px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
+                <a href="mis-reservas.html" data-roles="admin profesor" class="text-on-surface-variant mx-2 px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
                     <span class="material-symbols-outlined">
                         history
                     </span>
@@ -101,11 +101,18 @@
                     </span>
                 </a>
             </li>
+            <li>
+                <a href="gestion-profesores.html" data-roles="admin" class="text-on-surface-variant mx-2 px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
+                    <span class="material-symbols-outlined">manage_accounts</span>
+                    <span">Gestión de profesores</span>
+                </a>
+            </li>
 
             <li class="mt-auto">
                 <button
                     type="button"
                     data-logout
+                    data-roles="admin profesor"
                     class="w-full text-on-surface-variant mx-2 px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full"
                 >
                     <span class="material-symbols-outlined">

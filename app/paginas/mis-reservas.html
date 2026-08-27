@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="../css/style.css">
 
     <script defer type="module" src="../js/logout.js"></script>
+    <script type="module" src="../js/roles.js"></script>
 
 </head>
 
@@ -35,33 +36,43 @@
         <!-- El botón ahora está adentro del nav junto a las demás opciones -->
         <nav class="flex-1 flex flex-col gap-sm overflow-y-auto px-2">
             <a href="menu.html"
+                data-roles="admin profesor"
                 class="text-on-surface-variant px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full no-underline">
                 <span class="material-symbols-outlined">home</span>
                 <span class="font-label-lg">Inicio</span>
             </a>
             <a href="reservar.html"
+                data-roles="admin profesor"
                 class="text-on-surface-variant px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full no-underline">
                 <span class="material-symbols-outlined">laptop_mac</span>
                 <span class="font-label-lg">Reservar notebooks</span>
             </a>
             <a href="listado-notebooks.html"
+                data-roles="admin"
                 class="text-on-surface-variant px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full no-underline">
                 <span class="material-symbols-outlined">inventory_2</span>
                 <span class="font-label-lg">Inventario de Equipos</span>
             </a>
             <a href="ver-reservas.html"
+                data-roles="admin"
                 class="text-on-surface-variant px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full no-underline">
                 <span class="material-symbols-outlined">event_note</span>
                 <span class="font-label-lg">Ver reservas</span>
             </a>
             <a href="mis-reservas.html"
+                data-roles="admin profesor"
                 class="bg-secondary-container text-on-secondary-container rounded-full px-4 py-3 flex items-center gap-md no-underline">
                 <span class="material-symbols-outlined">history</span>
                 <span class="font-label-lg">Mis reservas</span>
             </a>
+            <a href="gestion-profesores.html" data-roles="admin" class="text-on-surface-variant mx-2 px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full">
+                <span class="material-symbols-outlined">manage_accounts</span>
+                <span">Gestión de profesores</span>
+            </a>
             <button
                 type="button"
                 data-logout
+                data-roles="admin profesor"
                 class="w-full text-on-surface-variant px-4 py-3 flex items-center gap-md hover:bg-surface-variant rounded-full no-underline border-none outline-none cursor-pointer"
             >
                 <span class="material-symbols-outlined">logout</span>
