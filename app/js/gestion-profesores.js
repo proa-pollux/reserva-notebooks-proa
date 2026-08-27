@@ -89,10 +89,10 @@ function crearTarjetaProfesor(profesor, accion) {
     const estadoBadge = profesor.activo
         ? `<span class="inline-flex items-center gap-1 text-label-md text-primary bg-primary/10 px-2 py-1 rounded-full">
             <span class="w-2 h-2 rounded-full bg-primary"></span> Activo
-           </span>`
+            </span>`
         : `<span class="inline-flex items-center gap-1 text-label-md text-error bg-error-container px-2 py-1 rounded-full">
             <span class="w-2 h-2 rounded-full bg-error"></span> Inactivo
-           </span>`;
+            </span>`;
 
     const botonesAccion = {
         editar: `
