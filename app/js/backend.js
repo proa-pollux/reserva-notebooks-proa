@@ -420,6 +420,86 @@ export async function actualizarEstadoReserva(idReserva, estado) {
 }
 
 // ============================================================
+// OBTENER RESERVAS DEL PROFESOR LOGUEADO
+// ============================================================
+export async function getMisReservas(idUsuario) {
+
+    if (!idUsuario) {
+        throw new Error(
+            'No se pudo identificar al usuario.'
+        );
+    }
+
+    // ========================================================
+    // BUSCAR EL PROFESOR ASOCIADO AL USUARIO
+    // ========================================================
+    const { data: profesor, error: errorProfesor } =
+        await supabase
+            .from('profesores')
+            .select('id, nombre, apellido, activo')
+            .eq('id_usuario', idUsuario)
+            .single();
+
+    if (errorProfesor) {
+
+        console.error(
+            'Error obteniendo profesor:',
+            errorProfesor.message
+        );
+
+        throw new Error(
+            'No se encontró el profesor asociado al usuario.'
+        );
+    }
+
+    // ========================================================
+    // OBTENER LAS RESERVAS DE ESE PROFESOR
+    // ========================================================
+    const { data: reservas, error: errorReservas } =
+        await supabase
+            .from('reservas')
+            .select(`
+                id,
+                id_profesor,
+                id_curso,
+                fecha,
+                hora_inicio,
+                hora_fin,
+                cantidad_notebooks,
+                estado,
+                observaciones,
+                fecha_reserva,
+                fecha_devolucion,
+
+                cursos (
+                    id,
+                    nombre
+                )
+            `)
+            .eq('id_profesor', profesor.id)
+            .order('fecha', {
+                ascending: false
+            })
+            .order('hora_inicio', {
+                ascending: false
+            });
+
+    if (errorReservas) {
+
+        console.error(
+            'Error obteniendo reservas:',
+            errorReservas.message
+        );
+
+        throw new Error(
+            'No se pudieron obtener tus reservas.'
+        );
+    }
+
+    return reservas;
+}
+
+// ============================================================
 // OBTENER RESERVAS POR FECHA
 // ============================================================
 export async function getReservasPorFecha(fecha) {
