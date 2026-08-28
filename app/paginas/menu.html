@@ -25,8 +25,12 @@
     
 </head>
 
-<body class="bg-background text-on-background min-h-screen flex flex-col md:flex-row">
-
+<body class="app-loading bg-background text-on-background min-h-screen flex flex-col md:flex-row">
+    <div id="app-loader">
+        <div class="app-loader-spinner"></div>
+        <div class="app-loader-text">Cargando...</div>
+    </div>
+    
 <header class="fixed top-0 w-full bg-surface dark:bg-background flex items-center px-md h-12 z-50 md:hidden">
 
     <button id="mobile-menu-btn"

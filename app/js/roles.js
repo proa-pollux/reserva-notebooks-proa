@@ -145,9 +145,7 @@ export async function controlarAccesoPorRol() {
                         .filter(Boolean);
 
 
-                if (
-                    !rolesPermitidos.includes(rol)
-                ) {
+                if (!rolesPermitidos.includes(rol)) {
 
                     elemento.remove();
 
@@ -166,7 +164,24 @@ export async function controlarAccesoPorRol() {
         );
 
         return null;
+
+    } finally {
+
+        // ----------------------------------------------------
+        // FINALIZAR PANTALLA DE CARGA
+        // ----------------------------------------------------
+
+        document.body.classList.remove('app-loading');
+
+        const loader =
+            document.getElementById('app-loader');
+
+        if (loader) {
+            loader.remove();
+        }
+
     }
+
 }
 
 
