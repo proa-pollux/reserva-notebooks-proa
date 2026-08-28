@@ -10,7 +10,6 @@ export const PERMISOS_ADMIN = [
     // Reservas
     'registrar_reserva',
     'ver_reservas',
-    'ver_mis_reservas',
 
     // Profesores
     'crear_profesores',
