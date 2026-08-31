@@ -242,8 +242,10 @@ export async function elegirNotebooks(fecha, horaInicio, horaFin, cantidadSolici
     // COMPLETAR CON CAJA INCOMPLETA
     // ========================================================
     if (cantidadRestante > 0) {
+
         const cajasIncompletas = cajasDisponibles
             .filter(item => {
+
                 const yaSeleccionada = cajasSeleccionadas.some(
                     seleccionada => seleccionada.caja.id === item.caja.id
                 );
@@ -258,16 +260,30 @@ export async function elegirNotebooks(fecha, horaInicio, horaFin, cantidadSolici
             );
 
         if (cajasIncompletas.length > 0) {
+
             const mejorCaja = cajasIncompletas[0];
-            const notebooksAUsar = mejorCaja.notebooks.slice(
-                0,
-                cantidadRestante
+
+            // ====================================================
+            // IMPORTANTE:
+            // Se reserva TODA la caja, no solamente las notebooks
+            // que necesita el profesor.
+            // ====================================================
+
+            notebooksSeleccionadas.push(
+                ...mejorCaja.notebooks
             );
-            notebooksSeleccionadas.push(...notebooksAUsar);
+
             cajasSeleccionadas.push({
                 caja: mejorCaja.caja,
-                notebooks: notebooksAUsar
+                notebooks: mejorCaja.notebooks
             });
+
+            // La caja completa queda reservada.
+            // Por ejemplo:
+            // pide 6
+            // ya tiene 5 de una caja
+            // esta caja tiene 3
+            // se reservan las 3.
             cantidadRestante = 0;
         }
     }
