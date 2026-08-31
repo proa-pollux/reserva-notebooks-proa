@@ -3,9 +3,7 @@ import { supabase } from './db.js';
 // ============================================================
 // OBTENER NOTEBOOKS
 // ============================================================
-
 export async function getNotebooks() {
-
     const { data, error } = await supabase
         .from('notebooks')
         .select(`
@@ -18,24 +16,17 @@ export async function getNotebooks() {
         .order('numero_inventario');
 
     if (error) {
-
-        console.error(
-            'Error al obtener notebooks:',
-            error.message
-        );
+        console.error('Error al obtener notebooks:', error.message);
         return [];
     }
 
     return data;
 }
 
-
 // ============================================================
 // OBTENER CAJAS
 // ============================================================
-
 export async function getCajas() {
-
     const { data, error } = await supabase
         .from('cajas')
         .select(`
@@ -46,12 +37,7 @@ export async function getCajas() {
         .order('id');
 
     if (error) {
-
-        console.error(
-            'Error al obtener cajas:',
-            error.message
-        );
-
+        console.error('Error al obtener cajas:', error.message);
         return [];
     }
 
@@ -61,57 +47,40 @@ export async function getCajas() {
 // ============================================================
 // OBTENER CURSOS
 // ============================================================
-
 export async function getCursos() {
-
     const { data, error } = await supabase
         .from('cursos')
         .select('id, nombre');
 
     if (error) {
-        console.error(
-            'Error al obtener cursos:',
-            error.message
-        );
+        console.error('Error al obtener cursos:', error.message);
         return [];
     }
 
     return data;
 }
 
-
 // ============================================================
 // OBTENER PROFESORES
 // ============================================================
-
 export async function getProfesores() {
-
     const { data, error } = await supabase
         .from('profesores')
         .select('id, nombre, apellido, activo')
         .eq('activo', true);
 
     if (error) {
-        console.error(
-            'Error al obtener profesores:',
-            error.message
-        );
+        console.error('Error al obtener profesores:', error.message);
         return [];
     }
 
     return data;
 }
 
-
 // ============================================================
 // ACTUALIZAR ESTADO DE NOTEBOOK
 // ============================================================
-
-export async function actualizarEstadoNotebook(
-    idNotebook,
-    estado
-) {
-
+export async function actualizarEstadoNotebook(idNotebook, estado) {
     const { error } = await supabase
         .from('notebooks')
         .update({
@@ -120,28 +89,17 @@ export async function actualizarEstadoNotebook(
         .eq('id', idNotebook);
 
     if (error) {
-
-        console.error(
-            'Error actualizando estado de notebook:',
-            error.message
-        );
-
+        console.error('Error actualizando estado de notebook:', error.message);
         return false;
     }
 
     return true;
 }
 
-
 // ============================================================
 // ACTUALIZAR OBSERVACIÓN DE NOTEBOOK
 // ============================================================
-
-export async function actualizarObservacionNotebook(
-    idNotebook,
-    observaciones
-) {
-
+export async function actualizarObservacionNotebook(idNotebook, observaciones) {
     const { error } = await supabase
         .from('notebooks')
         .update({
@@ -150,12 +108,7 @@ export async function actualizarObservacionNotebook(
         .eq('id', idNotebook);
 
     if (error) {
-
-        console.error(
-            'Error actualizando observación:',
-            error.message
-        );
-
+        console.error('Error actualizando observación:', error.message);
         return false;
     }
 
@@ -165,105 +118,56 @@ export async function actualizarObservacionNotebook(
 // ============================================================
 // OBTENER NOTEBOOKS DISPONIBLES
 // ============================================================
-
-export async function getNotebooksDisponibles(
-    fecha,
-    horaInicio,
-    horaFin
-) {
-
+export async function getNotebooksDisponibles(fecha, horaInicio, horaFin) {
     // Buscar reservas que se superponen con el horario elegido.
-    const { data: reservas, error: errorReservas } =
-        await supabase
-            .from('reservas')
-            .select('id')
-            .eq('fecha', fecha)
-            .eq('estado', 'RESERVADA')
-            .lt('hora_inicio', horaFin)
-            .gt('hora_fin', horaInicio);
+    const { data: reservas, error: errorReservas } = await supabase
+        .from('reservas')
+        .select('id')
+        .eq('fecha', fecha)
+        .eq('estado', 'RESERVADA')
+        .lt('hora_inicio', horaFin)
+        .gt('hora_fin', horaInicio);
 
     if (errorReservas) {
-
-        console.error(
-            'Error buscando reservas:',
-            errorReservas.message
-        );
-
+        console.error('Error buscando reservas:', errorReservas.message);
         return [];
     }
 
-
     // Obtener los IDs de las reservas.
-
-    const idsReservas = reservas.map(
-        reserva => reserva.id
-    );
-
+    const idsReservas = reservas.map(reserva => reserva.id);
     let idsOcupadas = [];
 
-
     // Buscar notebooks de esas reservas.
-
     if (idsReservas.length > 0) {
-
-        const {
-            data: notebooksReservadas,
-            error
-        } = await supabase
+        const { data: notebooksReservadas, error } = await supabase
             .from('reserva_notebooks')
             .select('id_notebook')
             .in('id_reserva', idsReservas);
 
         if (error) {
-
-            console.error(
-                'Error buscando notebooks reservadas:',
-                error.message
-            );
-
+            console.error('Error buscando notebooks reservadas:', error.message);
             return [];
         }
 
-        idsOcupadas = notebooksReservadas.map(
-            notebook => notebook.id_notebook
-        );
+        idsOcupadas = notebooksReservadas.map(notebook => notebook.id_notebook);
     }
 
     // Buscar notebooks disponibles físicamente.
     let query = supabase
         .from('notebooks')
-        .select(
-            'id, numero_inventario, id_caja, estado'
-        )
+        .select('id, numero_inventario, id_caja, estado')
         .eq('estado', 'DISPONIBLE')
         .order('numero_inventario');
 
-
     // Excluir notebooks que ya están ocupadas.
-
     if (idsOcupadas.length > 0) {
-
-        query = query.not(
-            'id',
-            'in',
-            `(${idsOcupadas.join(',')})`
-        );
+        query = query.not('id', 'in', `(${idsOcupadas.join(',')})`);
     }
 
-
-    const {
-        data: disponibles,
-        error: errorDisponibles
-    } = await query;
-
+    const { data: disponibles, error: errorDisponibles } = await query;
 
     if (errorDisponibles) {
-
-        console.error(
-            'Error buscando notebooks disponibles:',
-            errorDisponibles.message
-        );
-
+        console.error('Error buscando notebooks disponibles:', errorDisponibles.message);
         return [];
     }
 
@@ -273,163 +177,125 @@ export async function getNotebooksDisponibles(
 // ============================================================
 // ELEGIR NOTEBOOKS
 // ============================================================
-
-export async function elegirNotebooks(
-    fecha,
-    horaInicio,
-    horaFin,
-    cantidadSolicitada
-) {
-
-    const notebooksDisponibles =
-        await getNotebooksDisponibles(
-            fecha,
-            horaInicio,
-            horaFin
-        );
-
+export async function elegirNotebooks(fecha, horaInicio, horaFin, cantidadSolicitada) {
+    const notebooksDisponibles = await getNotebooksDisponibles(
+        fecha,
+        horaInicio,
+        horaFin
+    );
 
     // Verificar que haya suficientes.
-
-    if (
-        notebooksDisponibles.length <
-        cantidadSolicitada
-    ) {
-
+    if (notebooksDisponibles.length < cantidadSolicitada) {
         throw new Error(
             `Solo hay ${notebooksDisponibles.length} notebooks disponibles.`
         );
     }
 
-
     // Obtener cajas.
-
     const cajas = await getCajas();
-
     const cajasDisponibles = [];
 
-
     // Relacionar notebooks con cajas.
-
     for (const caja of cajas) {
-
-        const notebooksDeCaja =
-            notebooksDisponibles.filter(
-                notebook =>
-                    notebook.id_caja === caja.id
-            );
+        const notebooksDeCaja = notebooksDisponibles.filter(
+            notebook => notebook.id_caja === caja.id
+        );
 
         cajasDisponibles.push({
             caja: caja,
             notebooks: notebooksDeCaja,
-            cantidadDisponibles:
-                notebooksDeCaja.length
+            cantidadDisponibles: notebooksDeCaja.length
         });
     }
 
-
     // Ordenar cajas de mayor a menor cantidad disponible.
-
     cajasDisponibles.sort(
-        (a, b) =>
-            b.cantidadDisponibles -
-            a.cantidadDisponibles
+        (a, b) => b.cantidadDisponibles - a.cantidadDisponibles
     );
 
-
     let cantidadRestante = cantidadSolicitada;
-
     const notebooksSeleccionadas = [];
     const cajasSeleccionadas = [];
-
 
     // ========================================================
     // BUSCAR CAJAS COMPLETAS
     // ========================================================
-
     for (const item of cajasDisponibles) {
-
         if (cantidadRestante === 0) {
             break;
         }
 
         if (
-            item.cantidadDisponibles ===
-            item.caja.capacidad &&
-
-            item.cantidadDisponibles <=
-            cantidadRestante
+            item.cantidadDisponibles === item.caja.capacidad &&
+            item.cantidadDisponibles <= cantidadRestante
         ) {
-
-            notebooksSeleccionadas.push(
-                ...item.notebooks
-            );
-
+            notebooksSeleccionadas.push(...item.notebooks);
             cajasSeleccionadas.push({
                 caja: item.caja,
                 notebooks: item.notebooks
             });
-
-            cantidadRestante -=
-                item.notebooks.length;
+            cantidadRestante -= item.notebooks.length;
         }
     }
-
 
     // ========================================================
     // COMPLETAR CON CAJA INCOMPLETA
     // ========================================================
-
     if (cantidadRestante > 0) {
 
-        const cajasIncompletas =
-            cajasDisponibles
-                .filter(item => {
+        const cajasIncompletas = cajasDisponibles
+            .filter(item => {
 
-                    const yaSeleccionada =
-                        cajasSeleccionadas.some(
-                            seleccionada =>
-                                seleccionada.caja.id ===
-                                item.caja.id
-                        );
-
-                    return (
-                        !yaSeleccionada &&
-                        item.cantidadDisponibles >=
-                        cantidadRestante
-                    );
-                })
-                .sort(
-                    (a, b) =>
-                        a.cantidadDisponibles -
-                        b.cantidadDisponibles
+                const yaSeleccionada = cajasSeleccionadas.some(
+                    seleccionada => seleccionada.caja.id === item.caja.id
                 );
 
+                return (
+                    !yaSeleccionada &&
+                    item.cantidadDisponibles >= cantidadRestante
+                );
+            })
+            .sort(
+                (a, b) => a.cantidadDisponibles - b.cantidadDisponibles
+            );
 
         if (cajasIncompletas.length > 0) {
-            const mejorCaja =  cajasIncompletas[0];
-            const notebooksAUsar = mejorCaja.notebooks.slice(
-                0,
-                cantidadRestante
+
+            const mejorCaja = cajasIncompletas[0];
+
+            // ====================================================
+            // IMPORTANTE:
+            // Se reserva TODA la caja, no solamente las notebooks
+            // que necesita el profesor.
+            // ====================================================
+
+            notebooksSeleccionadas.push(
+                ...mejorCaja.notebooks
             );
-            notebooksSeleccionadas.push( ...notebooksAUsar);
-            cajasSeleccionadas.push({ caja: mejorCaja.caja, notebooks: notebooksAUsar});
+
+            cajasSeleccionadas.push({
+                caja: mejorCaja.caja,
+                notebooks: mejorCaja.notebooks
+            });
+
+            // La caja completa queda reservada.
+            // Por ejemplo:
+            // pide 6
+            // ya tiene 5 de una caja
+            // esta caja tiene 3
+            // se reservan las 3.
             cantidadRestante = 0;
         }
     }
 
-
     // ========================================================
     // VERIFICAR QUE SE COMPLETÓ
     // ========================================================
-
     if (cantidadRestante > 0) {
-
         throw new Error(
             'No se pudieron encontrar las cajas necesarias para completar la reserva.'
         );
     }
-
 
     return {
         notebooks: notebooksSeleccionadas,
@@ -437,12 +303,10 @@ export async function elegirNotebooks(
     };
 }
 
-// ==========================
+// ============================================================
 // CREAR NUEVA CAJA
-// ==========================
-
+// ============================================================
 export async function crearCaja(nombre, capacidad) {
-
     const { data, error } = await supabase
         .from('cajas')
         .insert({
@@ -453,12 +317,7 @@ export async function crearCaja(nombre, capacidad) {
         .single();
 
     if (error) {
-
-        console.error(
-            'Error al crear la caja:',
-            error.message
-        );
-
+        console.error('Error al crear la caja:', error.message);
         throw error;
     }
 
@@ -468,13 +327,7 @@ export async function crearCaja(nombre, capacidad) {
 // ============================================================
 // CREAR NOTEBOOK
 // ============================================================
-
-export async function crearNotebook(
-    numeroInventario,
-    idCaja,
-    estado
-) {
-
+export async function crearNotebook(numeroInventario, idCaja, estado) {
     const { data, error } = await supabase
         .from('notebooks')
         .insert({
@@ -492,12 +345,7 @@ export async function crearNotebook(
         .single();
 
     if (error) {
-
-        console.error(
-            'Error al crear notebook:',
-            error.message
-        );
-
+        console.error('Error al crear notebook:', error.message);
         throw error;
     }
 
@@ -507,7 +355,6 @@ export async function crearNotebook(
 // ============================================================
 // REGISTRAR RESERVA
 // ============================================================
-
 export async function registrarReserva({
     fecha,
     horaInicio,
@@ -516,18 +363,13 @@ export async function registrarReserva({
     idCurso,
     cantidad
 }) {
-
     // Primero elegir notebooks.
-
-    const seleccion = await elegirNotebooks(fecha,horaInicio,horaFin,cantidad);
+    const seleccion = await elegirNotebooks(fecha, horaInicio, horaFin, cantidad);
 
     // ========================================================
     // INSERTAR RESERVA
     // ========================================================
-    const {
-        data: reserva,
-        error: errorReserva
-    } = await supabase
+    const { data: reserva, error: errorReserva } = await supabase
         .from('reservas')
         .insert({
             fecha: fecha,
@@ -541,36 +383,27 @@ export async function registrarReserva({
         })
         .select('id')
         .single();
+
     if (errorReserva) {
-        console.error(
-            'Error creando reserva:',
-            errorReserva.message
-        );
-        throw new Error(
-            'No se pudo crear la reserva.'
-        );
+        console.error('Error creando reserva:', errorReserva.message);
+        throw new Error('No se pudo crear la reserva.');
     }
+
     // ========================================================
     // RELACIÓN RESERVA - NOTEBOOK
     // ========================================================
-    const registrosNotebooks =
-        seleccion.notebooks.map(
-            notebook => ({
-                id_reserva: reserva.id,
-                id_notebook: notebook.id
-            })
-        );
+    const registrosNotebooks = seleccion.notebooks.map(notebook => ({
+        id_reserva: reserva.id,
+        id_notebook: notebook.id
+    }));
 
-    const {error: errorNotebooks} = await supabase.from('reserva_notebooks').insert(registrosNotebooks);
+    const { error: errorNotebooks } = await supabase
+        .from('reserva_notebooks')
+        .insert(registrosNotebooks);
 
     if (errorNotebooks) {
-        console.error(
-            'Error guardando notebooks:',
-            errorNotebooks.message
-        );
-        throw new Error(
-            'No se pudieron guardar las notebooks de la reserva.'
-        );
+        console.error('Error guardando notebooks:', errorNotebooks.message);
+        throw new Error('No se pudieron guardar las notebooks de la reserva.');
     }
 
     // ========================================================
@@ -582,14 +415,11 @@ export async function registrarReserva({
         cajas: seleccion.cajas
     };
 }
+
 // ============================================================
 // ACTUALIZAR ESTADO DE UNA RESERVA
 // ============================================================
-
-export async function actualizarEstadoReserva(
-    idReserva,
-    estado
-) {
+export async function actualizarEstadoReserva(idReserva, estado) {
     const { error } = await supabase
         .from('reservas')
         .update({
@@ -597,32 +427,102 @@ export async function actualizarEstadoReserva(
         })
         .eq('id', idReserva);
 
-
     if (error) {
-
-        console.error(
-            'Error actualizando estado:',
-            error.message
-        );
-
+        console.error('Error actualizando estado:', error.message);
         return false;
     }
+
     return true;
 }
+
+// ============================================================
+// OBTENER RESERVAS DEL PROFESOR LOGUEADO
+// ============================================================
+export async function getMisReservas(idUsuario) {
+
+    if (!idUsuario) {
+        throw new Error(
+            'No se pudo identificar al usuario.'
+        );
+    }
+
+    // ========================================================
+    // BUSCAR EL PROFESOR ASOCIADO AL USUARIO
+    // ========================================================
+    const { data: profesor, error: errorProfesor } =
+        await supabase
+            .from('profesores')
+            .select('id, nombre, apellido, activo')
+            .eq('id_usuario', idUsuario)
+            .single();
+
+    if (errorProfesor) {
+
+        console.error(
+            'Error obteniendo profesor:',
+            errorProfesor.message
+        );
+
+        throw new Error(
+            'No se encontró el profesor asociado al usuario.'
+        );
+    }
+
+    // ========================================================
+    // OBTENER LAS RESERVAS DE ESE PROFESOR
+    // ========================================================
+    const { data: reservas, error: errorReservas } =
+        await supabase
+            .from('reservas')
+            .select(`
+                id,
+                id_profesor,
+                id_curso,
+                fecha,
+                hora_inicio,
+                hora_fin,
+                cantidad_notebooks,
+                estado,
+                observaciones,
+                fecha_reserva,
+                fecha_devolucion,
+
+                cursos (
+                    id,
+                    nombre
+                )
+            `)
+            .eq('id_profesor', profesor.id)
+            .order('fecha', {
+                ascending: false
+            })
+            .order('hora_inicio', {
+                ascending: false
+            });
+
+    if (errorReservas) {
+
+        console.error(
+            'Error obteniendo reservas:',
+            errorReservas.message
+        );
+
+        throw new Error(
+            'No se pudieron obtener tus reservas.'
+        );
+    }
+
+    return reservas;
+}
+
 // ============================================================
 // OBTENER RESERVAS POR FECHA
 // ============================================================
-
 export async function getReservasPorFecha(fecha) {
-
     // ========================================================
     // OBTENER RESERVAS
     // ========================================================
-
-    const {
-        data: reservas,
-        error
-    } = await supabase
+    const { data: reservas, error } = await supabase
         .from('reservas')
         .select(`
             id,
@@ -645,89 +545,63 @@ export async function getReservasPorFecha(fecha) {
             )
         `)
         .eq('fecha', fecha)
-        .order('hora_inicio', {
-            ascending: true
-        });
-
+        .order('hora_inicio', { ascending: true });
 
     if (error) {
-
-        console.error(
-            'Error obteniendo reservas:',
-            error.message
-        );
-
-        throw new Error(
-            'No se pudieron obtener las reservas.'
-        );
+        console.error('Error obteniendo reservas:', error.message);
+        throw new Error('No se pudieron obtener las reservas.');
     }
 
     // ========================================================
     // ACTUALIZAR AUTOMÁTICAMENTE LAS RESERVAS VENCIDAS
     // ========================================================
-
     const ahora = new Date();
 
     for (const reserva of reservas) {
-
         if (reserva.estado !== 'RESERVADA') {
             continue;
         }
 
         // Crear fecha y hora de finalización
-        const fechaFin = new Date(
-            `${reserva.fecha}T${reserva.hora_fin}`
-        );
+        const fechaFin = new Date(`${reserva.fecha}T${reserva.hora_fin}`);
 
         // Agregar 15 minutos al horario de finalización
         const limiteDevolucion = new Date(
-            fechaFin.getTime() +
-            15 * 60 * 1000
+            fechaFin.getTime() + 15 * 60 * 1000
         );
 
         // Si ya pasaron los 15 minutos:
         if (ahora >= limiteDevolucion) {
+            console.log(`Reserva ${reserva.id} finalizada automáticamente.`);
 
-            console.log(
-                `Reserva ${reserva.id} finalizada automáticamente.`
-            );
-            const { error: errorActualizacion } =
-                await supabase
-                    .from('reservas')
-                    .update({
-                        estado: 'DEVUELTA'
-                    })
-                    .eq('id', reserva.id);
-
+            const { error: errorActualizacion } = await supabase
+                .from('reservas')
+                .update({
+                    estado: 'DEVUELTA'
+                })
+                .eq('id', reserva.id);
 
             if (errorActualizacion) {
-
                 console.error(
                     `Error actualizando reserva ${reserva.id}:`,
                     errorActualizacion.message
                 );
-
             } else {
-
                 // Actualizamos también el objeto local para que la tarjeta muestre DEVUELTA
                 reserva.estado = 'DEVUELTA';
             }
         }
     }
-// Devolver reservas actualizadas
+
+    // Devolver reservas actualizadas
     return reservas;
 }
 
 // ============================================================
 // OBTENER NOTEBOOKS DE UNA RESERVA
 // ============================================================
-
 export async function getNotebooksDeReserva(idReserva) {
-
-    const {
-        data,
-        error
-    } = await supabase
+    const { data, error } = await supabase
         .from('reserva_notebooks')
         .select(`
             id_notebook,
@@ -741,15 +615,8 @@ export async function getNotebooksDeReserva(idReserva) {
         .eq('id_reserva', idReserva);
 
     if (error) {
-
-        console.error(
-            'Error obteniendo notebooks de la reserva:',
-            error.message
-        );
-
-        throw new Error(
-            'No se pudieron obtener las notebooks de la reserva.'
-        );
+        console.error('Error obteniendo notebooks de la reserva:', error.message);
+        throw new Error('No se pudieron obtener las notebooks de la reserva.');
     }
 
     return data;
@@ -758,9 +625,7 @@ export async function getNotebooksDeReserva(idReserva) {
 // ============================================================
 // OBTENER UNA RESERVA POR ID
 // ============================================================
-
 export async function getReservaPorId(idReserva) {
-
     const { data, error } = await supabase
         .from('reservas')
         .select(`
@@ -789,12 +654,7 @@ export async function getReservaPorId(idReserva) {
         .single();
 
     if (error) {
-
-        console.error(
-            'Error obteniendo reserva:',
-            error.message
-        );
-
+        console.error('Error obteniendo reserva:', error.message);
         throw error;
     }
 
@@ -804,7 +664,6 @@ export async function getReservaPorId(idReserva) {
 // ============================================================
 // CANCELAR RESERVA
 // ============================================================
-
 export async function cancelarReserva(idReserva) {
     const { error } = await supabase
         .from('reservas')
@@ -814,13 +673,221 @@ export async function cancelarReserva(idReserva) {
         .eq('id', idReserva);
 
     if (error) {
+        console.error('Error cancelando reserva:', error.message);
+        throw new Error('No se pudo cancelar la reserva.');
+    }
+
+    return true;
+}
+
+// ============================================================
+// GESTIÓN DE PROFESORES - ADMIN
+// ============================================================
+
+// ============================================================
+// OBTENER TODOS LOS PROFESORES
+// ============================================================
+export async function getProfesoresAdmin() {
+    const { data, error } = await supabase
+        .from('profesores')
+        .select(`
+            id,
+            nombre,
+            apellido,
+            activo
+        `)
+        .order('apellido', { ascending: true })
+        .order('nombre', { ascending: true });
+
+    if (error) {
         console.error(
-            'Error cancelando reserva:',
+            'Error obteniendo profesores para administración:',
             error.message
         );
-        throw new Error(
-            'No se pudo cancelar la reserva.'
-        );
+        throw new Error('No se pudieron obtener los profesores.');
     }
-    return true;
+
+    return data;
+}
+
+// ============================================================
+// OBTENER PROFESOR POR ID
+// ============================================================
+export async function getProfesorPorId(idProfesor) {
+    const { data, error } = await supabase
+        .from('profesores')
+        .select(`
+            id,
+            nombre,
+            apellido,
+            activo
+        `)
+        .eq('id', idProfesor)
+        .single();
+
+    if (error) {
+        console.error('Error obteniendo profesor:', error.message);
+        throw new Error('No se pudo obtener el profesor.');
+    }
+
+    return data;
+}
+
+// ============================================================
+// CREAR PROFESOR
+// ============================================================
+export async function crearProfesor({ nombre, apellido, email, password }) {
+    if (!nombre || !apellido || !email || !password) {
+        throw new Error('Todos los campos son obligatorios.');
+    }
+
+    const { data, error } = await supabase.functions.invoke(
+        'crear-profesor',
+        {
+            body: {
+                accion: 'crear',
+                nombre: nombre.trim(),
+                apellido: apellido.trim(),
+                email: email.trim(),
+                password: password
+            }
+        }
+    );
+
+    if (error) {
+        console.error('Error invocando crear profesor:', error);
+        throw new Error('No se pudo crear el profesor.');
+    }
+
+    if (!data?.success) {
+        throw new Error(data?.error || 'No se pudo crear el profesor.');
+    }
+
+    return data.profesor;
+}
+
+// ============================================================
+// ACTUALIZAR PROFESOR
+// ============================================================
+export async function actualizarProfesor(
+    idProfesor,
+    nombre,
+    apellido,
+    password = ''
+) {
+    if (!idProfesor || !nombre || !apellido) {
+        throw new Error('El ID, nombre y apellido son obligatorios.');
+    }
+
+    console.log('EDITANDO PROFESOR:', {
+        idProfesor,
+        nombre,
+        apellido,
+        tienePassword: password.trim() !== ''
+    });
+
+    const { data, error } = await supabase.functions.invoke(
+        'crear-profesor',
+        {
+            body: {
+                accion: 'editar',
+                idProfesor: idProfesor,
+                nombre: nombre.trim(),
+                apellido: apellido.trim(),
+                password: password
+            }
+        }
+    );
+
+    if (error) {
+        console.error('Error invocando editar profesor:', error);
+
+        if (data?.error) {
+            console.error('Detalle devuelto por Edge Function:', data);
+            throw new Error(data.error);
+        }
+
+        throw new Error('No se pudo actualizar el profesor.');
+    }
+
+    if (!data?.success) {
+        console.error('Respuesta incorrecta de editar profesor:', data);
+        throw new Error(data?.error || 'No se pudo actualizar el profesor.');
+    }
+
+    return data.profesor;
+}
+
+// ============================================================
+// DAR DE BAJA PROFESOR
+// ============================================================
+export async function darDeBajaProfesor(idProfesor) {
+    if (!idProfesor) {
+        throw new Error('El ID del profesor es obligatorio.');
+    }
+
+    console.log('DANDO DE BAJA PROFESOR:', idProfesor);
+
+    const { data, error } = await supabase.functions.invoke(
+        'crear-profesor',
+        {
+            body: {
+                accion: 'baja',
+                idProfesor: idProfesor
+            }
+        }
+    );
+
+    if (error) {
+        console.error('Error invocando baja profesor:', error);
+
+        if (data?.error) {
+            throw new Error(data.error);
+        }
+
+        throw new Error('No se pudo dar de baja al profesor.');
+    }
+
+    if (!data?.success) {
+        throw new Error(data?.error || 'No se pudo dar de baja al profesor.');
+    }
+
+    return data.profesor;
+}
+
+// ============================================================
+// REACTIVAR PROFESOR
+// ============================================================
+export async function reactivarProfesor(idProfesor) {
+    if (!idProfesor) {
+        throw new Error('El ID del profesor es obligatorio.');
+    }
+
+    console.log('REACTIVANDO PROFESOR:', idProfesor);
+
+    const { data, error } = await supabase.functions.invoke(
+        'crear-profesor',
+        {
+            body: {
+                accion: 'reactivar',
+                idProfesor: idProfesor
+            }
+        }
+    );
+
+    if (error) {
+        console.error('Error invocando reactivación de profesor:', error);
+
+        if (data?.error) {
+            throw new Error(data.error);
+        }
+
+        throw new Error('No se pudo reactivar al profesor.');
+    }
+
+    if (!data?.success) {
+        throw new Error(data?.error || 'No se pudo reactivar al profesor.');
+    }
+
+    return data.profesor;
 }

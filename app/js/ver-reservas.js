@@ -74,7 +74,7 @@ function obtenerClasesEstado(estado) {
                 text-yellow-800
             `;
 
-        case 'EN CURSO':
+        case 'EN_CURSO':
             return `
                 bg-sky-100
                 text-sky-800

@@ -1,4 +1,5 @@
 import { getNotebooksDisponibles, registrarReserva } from './backend.js';
+import { verificarSesionYObtenerRol } from './auth.js';
 
 // ============================================================
 // ELEMENTOS
@@ -26,6 +27,7 @@ const btnVolverFlecha = document.getElementById('btn-flecha-volver');
 let cantidad = 1;
 let notebooksDisponiblesActuales = [];
 let cursoSeleccionado = null;
+let datosUsuario = null;
 
 // ============================================================
 // FECHA ACTUAL
@@ -234,7 +236,18 @@ btnContinuar.addEventListener('click', async () => {
     const fecha = fechaReserva.value;
     const inicio = horaInicio.value;
     const fin = horaFin.value;
-    const profesor = profesorSelect.value;
+
+    let profesor;
+
+    // Si es profesor, usar automáticamente su propio ID.
+    if (datosUsuario?.rol === 'profesor') {
+        profesor = datosUsuario.user.id;
+    }
+
+    // Si es admin, usar el profesor seleccionado.
+    if (datosUsuario?.rol === 'admin') {
+        profesor = profesorSelect.value;
+    }
 
     // VALIDACIONES
     if (!fecha) {
@@ -376,6 +389,17 @@ btnVolverFlecha.addEventListener('click', () => {
 // INICIAR
 // ============================================================
 
-fechaReserva.value = obtenerFechaActual();
-actualizarCantidad();
-cargarNotebooksDisponibles();
+async function inicializar() {
+    datosUsuario = await verificarSesionYObtenerRol();
+
+    if (!datosUsuario) {
+        return;
+    }
+    console.log('Usuario actual:', datosUsuario);
+
+    fechaReserva.value = obtenerFechaActual();
+    actualizarCantidad();
+    cargarNotebooksDisponibles();
+}
+
+inicializar();

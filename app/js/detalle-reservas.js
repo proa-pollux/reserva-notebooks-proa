@@ -114,16 +114,16 @@ function mostrarEstado(estado) {
                 'La reserva todavía no comenzó. Podés cancelarla si ya no necesitás los equipos.';
             break;
 
-        case 'EN CURSO':
+        case 'EN_CURSO':
             estadoContainer.classList.add('bg-sky-100', 'text-sky-800');
             estadoIcono.textContent = 'laptop_mac';
-            estadoTexto.textContent = 'EN USO';
+            estadoTexto.textContent = 'EN CRUSO';
 
             btnDevolver.classList.remove('hidden');
             btnDevolver.classList.add('flex');
 
             mensajeEstadoTexto.textContent =
-                'La reserva está actualmente en uso. Cuando termines, marcá los equipos como devueltos.';
+                'La reserva está actualmente en curso. Cuando termines, marcá los equipos como devueltos.';
             break;
 
         case 'DEVUELTA':
@@ -314,8 +314,8 @@ async function cargarReserva() {
         const estadoCalculado = determinarEstado(reserva);
 
         // Actualizar BD si la reserva pasó a "EN CURSO" automáticamente
-        if (reserva.estado === 'RESERVADA' && estadoCalculado === 'EN CURSO') {
-            const actualizado = await actualizarEstadoReserva(id, 'EN CURSO');
+        if (reserva.estado === 'RESERVADA' && estadoCalculado === 'EN_CURSO') {
+            const actualizado = await actualizarEstadoReserva(id, 'EN_CURSO');
             if (actualizado) {
                 console.log(`Reserva ${id} actualizada a EN CURSO en backend.`);
             }

@@ -1,5 +1,8 @@
 import { supabase } from './db.js';
 
+// Rol del usuario actualmente autenticado
+export let rolUsuario = null;
+
 function mapearErrorAuth(error) {
     if (!error) return 'Ocurrió un error inesperado.';
 
@@ -129,4 +132,91 @@ export function configurarLogout() {
             }
         });
     });
+}
+
+// ============================================================
+// OBTENER ROL DEL USUARIO AUTENTICADO
+// ============================================================
+export async function obtenerRolUsuario() {
+    const user = await verificarSesion();
+
+    if (!user) {
+        return null;
+    }
+
+    const { data, error } = await supabase
+        .from('roles_usuario')
+        .select('rol')
+        .eq('id', user.id)
+        .single();
+
+    if (error) {
+        console.error('Error obteniendo el rol del usuario:', error.message);
+        return null;
+    }
+
+    return data.rol;
+}
+
+// ============================================================
+// VERIFICAR SESIÓN + OBTENER ROL
+// ============================================================
+export async function verificarSesionYObtenerRol() {
+    const user = await verificarSesion();
+
+    if (!user) {
+        rolUsuario = null;
+        return null;
+    }
+
+    const { data, error } = await supabase
+        .from('roles_usuario')
+        .select('id, rol')
+        .eq('id', user.id)
+        .maybeSingle();
+
+    if (error) {
+        console.error('Error obteniendo el rol:', error.message);
+        rolUsuario = null;
+        return null;
+    }
+
+    if (!data) {
+        console.error('El usuario no tiene un rol asignado.');
+        rolUsuario = null;
+        return null;
+    }
+
+    // Guardamos el rol globalmente
+    rolUsuario = data.rol.toLowerCase();
+
+    return {
+        user,
+        rol: rolUsuario
+    };
+}
+
+// ============================================================
+// PROTEGER PÁGINA SEGÚN ROL
+// ============================================================
+export async function verificarAccesoPorRol(rolesPermitidos) {
+    const datosUsuario = await verificarSesionYObtenerRol();
+
+    if (!datosUsuario) {
+        return null;
+    }
+
+    const rol = datosUsuario.rol.toLowerCase();
+
+    const roles = rolesPermitidos.map(
+        rolPermitido => rolPermitido.toLowerCase()
+    );
+
+    if (!roles.includes(rol)) {
+        console.warn(`Acceso denegado. Rol: ${rol}`);
+        window.location.href = 'menu.html';
+        return null;
+    }
+
+    return datosUsuario;
 }
